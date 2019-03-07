@@ -85,7 +85,7 @@ def get_all_entities(client: Client, etype: Type[E]) -> List[E]:
     """
     Returns all entities for the given :class:`Entity` type.
     """
-    return [etype.of(d) for d in client.get(getattr(etype, "_endpoint"), params={"page_size": "-1"})]
+    return [etype.of(d) for d in client.get(getattr(etype, "_Entity__endpoint"), params={"page_size": "-1"})]
 
 
 def get_entities_table(client: Client, etype: Type[E]) -> Dict[int, E]:
