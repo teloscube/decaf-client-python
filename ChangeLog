@@ -1,5 +1,16 @@
-VERS: 2019-03-05 ------- 0.0.1
+VERS: 2019-04-16 ------- 0.0.2
 
+    * 2019-04-16 d3cdc74 [release] Version bumped to 0.0.2 (vst@vsthost.com)
+    * 2019-03-07 23be6ea [improve] Support for remote value collections (vst@vsthost.com)
+    * 2019-03-07 77c19bc [fix] Entity endpoint attribute fix (vst@vsthost.com)
+    * 2019-03-06 d13ba17 [improve] Request timeouts and exception handling (vst@vsthost.com)
+    * 2019-03-05 779002b [chore] Revisit dev dependencies (vst@vsthost.com)
+    * 2019-03-05 e590bd8 [chore] Version bumped to 0.0.2.dev0 (vst@vsthost.com)
+
+VERS: 2019-03-05 86589d3 0.0.1 (vst@vsthost.com)
+
+    * 2019-03-05 3b3ebcb Merge branch '0.0.1' (vst@vsthost.com)
+    * 2019-03-05 d663296 [release] Change log updated (vst@vsthost.com)
     * 2019-03-05 b4a0bdc [release] Version bumped to 0.0.1 (vst@vsthost.com)
     * 2019-03-05 afd8b3b Initial code commit (vst@vsthost.com)
     * 2019-03-05 a90b4dc Initial commit (vst@vsthost.com)
