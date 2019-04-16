@@ -38,11 +38,12 @@ Requirements = [
 #: Defines extra requirements for various other purposes.
 RequirementsExtras = {
     "dev": [
+        "flake8",
         "ipython",
         "mypy",
-        "flake8",
         "tox",
         "twine",
+        "wheel",
     ],
 }
 

@@ -43,6 +43,9 @@ RFiles = Optional[Dict[str, Any]]
 #: Defines a type alias for request headers.
 RHeads = Optional[Dict[str, str]]
 
+#: Defines a type alias for timeouts.
+RTimeout = Optional[Tuple[float, float]]
+
 
 @dataclass(frozen=True)
 class CError(Exception):
@@ -89,17 +92,21 @@ class CRequest:
     #: Defines the request headers.
     headers: RHeads = None
 
+    #: Defines the timeout, if any:
+    timeout: RTimeout = None
+
     @classmethod
-    def get(cls, endpoint: str, params: RParams = None, headers: RHeads = None) -> "CRequest":
+    def get(cls, endpoint: str, params: RParams = None, headers: RHeads = None, timeout: RTimeout = None) -> "CRequest":
         """
         Returns a client request instance for simple get requests.
 
         :param endpoint:    Relative path for the remote API endpoint URL.
         :param params:      Request parameters, if any.
         :param headers:     Request headers, if any.
+        :param timeout:     Request timeout, if any.
         :return:            A :class:`CRequest` instance.
         """
-        return cls(endpoint=endpoint, params=params, headers=headers)
+        return cls(endpoint=endpoint, params=params, headers=headers, timeout=timeout)
 
 
 @dataclass(frozen=True)
@@ -134,8 +141,9 @@ class Client:
         """
         Builds the full URL for the given endpoint.
 
-        :param endpoint: Remote endpoint URI path segment.
-        :return: Remote endpoint URL.
+        :param endpoint:    Remote endpoint URI path segment.
+        :return:            Remote endpoint URL.
+        :raises:            :class:`CError`
 
         >>> client = Client("http://example.com///", "key", "scr")
         >>> client.build_url("test")
@@ -162,7 +170,7 @@ class Client:
         """
         return f"Key {self.key}:{self.scr}"
 
-    def request(self, request: CRequest) -> Response:
+    def request(self, request: CRequest) -> Response:  # noqa: ignore=C901
         """
         Provides a low level abstraction for API requests.
         """
@@ -178,13 +186,23 @@ class Client:
             "json": request.json,
             "files": request.files,
             "headers": headers,
-            "auth": _noop_auth
+            "auth": _noop_auth,
+            "timeout": request.timeout,
         }
 
-        ## Make the request and return:
-        return requests.request(**reqargs)
+        ## Attempt to request and return:
+        try:
+            return requests.request(**reqargs)
+        except requests.exceptions.HTTPError as err:
+            raise CError(f"HTTP Error", -1, str(err))
+        except requests.exceptions.Timeout as err:
+            raise CError(f"Timeout Error", -1, str(err))
+        except requests.exceptions.ConnectionError as err:
+            raise CError(f"Connection Error", -1, str(err))
+        except requests.exceptions.RequestException as err:
+            raise CError(f"Request Error", -1, str(err))
 
-    def get(self, endpoint: str, params: RData = None, headers: RHeads = None) -> Any:
+    def get(self, endpoint: str, params: RData = None, headers: RHeads = None, timeout: RTimeout = None) -> Any:
         """
         Issues a GET request to the remote API endpoint which returns a JSON response.
 
@@ -193,10 +211,12 @@ class Client:
         :param endpoint:    Relative path for the remote API endpoint URL.
         :param params:      Request parameters, if any.
         :param headers:     Request headers, if any.
+        :param timeout:     Request timeout, if any.
         :return:            Response data as a Python primitive.
+        :raises:            :class:`CError`
         """
         ## Attempt to get the response:
-        response = self.request(CRequest.get(endpoint, params, headers))
+        response = self.request(CRequest.get(endpoint, params, headers, timeout))
 
         ## Check the status code:
         if response.status_code != 200:
@@ -205,7 +225,7 @@ class Client:
         ## Return the data:
         return response.json()
 
-    def post(self, endpoint: str, params: RData = None, headers: RHeads = None, json: RJson = None) -> Any:
+    def post(self, endpoint: str, params: RData = None, headers: RHeads = None, json: RJson = None, timeout: RTimeout = None) -> Any:  # noqa: E501
         """
         Issues a POST request to the remote API endpoint which returns a JSON response.
 
@@ -215,10 +235,15 @@ class Client:
         :param params:      Request parameters, if any.
         :param headers:     Request headers, if any.
         :param json:        Data which can be marshalled into a JSON payload.
+        :param timeout:     Request timeout, if any.
         :return:            Response data as a Python primitive.
+        :raises:            :class:`CError`
         """
-        ## Attempt to get the response:
-        response = self.request(CRequest(endpoint, method="POST", params=params, json=json, headers=headers))
+        ## Prepare the request:
+        request = CRequest(endpoint, method="POST", params=params, json=json, headers=headers, timeout=timeout)
+
+        ## Attempt to post the response:
+        response = self.request(request)
 
         ## Check the status code:
         if response.status_code > 299:

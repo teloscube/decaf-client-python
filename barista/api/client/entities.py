@@ -4,12 +4,42 @@ from typing import TypeVar, Type, Dict, Any, List
 from barista.api.client.machinery import Client
 
 
+#: Defines a generic type variable for value subclasses.
+V = TypeVar("V", bound="Value")
+
+
 #: Defines a generic type variable for entity subclasses.
 E = TypeVar("E", bound="Entity")
 
 
 #: Defines a type alias for primary identifier of entity instances.
 ID = int
+
+
+class Value:
+    """
+    Provides the base class for remote value models.
+    """
+
+    def __init_subclass__(cls, **kwargs: Any) -> None:
+        ## Get the endpoint URI path segment:
+        try:
+            endpoint = kwargs.pop("endpoint")
+        except KeyError:
+            raise TypeError("Value implementation is missing the 'endpoint' specifier.")
+
+        ## Promote the endpoint to the class:
+        cls.__endpoint = endpoint
+
+        ## Proceed with the initialization:
+        super().__init_subclass__()
+
+    @classmethod
+    def of(cls: Type[V], data: Dict[str, Any]) -> V:
+        """
+        Creates an instance of entity from the given data.
+        """
+        return cls(**{f.name: data[f.name] for f in fields(cls)})  # type: ignore
 
 
 @dataclass(frozen=True)
@@ -81,11 +111,33 @@ class Team(Entity, endpoint="teams"):
     name: str
 
 
+@dataclass(frozen=True)
+class RiskProfile(Entity, endpoint="riskprofiles"):
+    #: Defines the name of the risk profile.
+    name: str
+
+
+@dataclass(frozen=True)
+class Country(Value, endpoint="countries"):
+    #: Defines the identifier of the country which is expected to be the 2-letter ISO code.
+    id: str
+
+    #: Defines the name of the country.
+    name: str
+
+
+def get_all_values(client: Client, vtype: Type[V]) -> List[V]:
+    """
+    Returns all values for the given :class:`Value` type.
+    """
+    return [vtype.of(d) for d in client.get(getattr(vtype, "_Value__endpoint"))]
+
+
 def get_all_entities(client: Client, etype: Type[E]) -> List[E]:
     """
     Returns all entities for the given :class:`Entity` type.
     """
-    return [etype.of(d) for d in client.get(getattr(etype, "_endpoint"), params={"page_size": "-1"})]
+    return [etype.of(d) for d in client.get(getattr(etype, "_Entity__endpoint"), params={"page_size": "-1"})]
 
 
 def get_entities_table(client: Client, etype: Type[E]) -> Dict[int, E]:
