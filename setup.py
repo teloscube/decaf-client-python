@@ -23,7 +23,7 @@ VersionRE = r"__version__\s*=\s*['\"]([^'\"]*)['\"]"
 Version = re.search(VersionRE, open(f"{BaseDir}/decaf/api/client/__init__.py", encoding="utf_8_sig").read()).group(1)
 
 #: Defines the README file contents.
-with open(os.path.join(BaseDir, "README.rst")) as cfile:
+with open(os.path.join(BaseDir, "README.md")) as cfile:
     Readme = cfile.read()
 
 #: Defines the LICENSE file contents.
@@ -53,6 +53,7 @@ setup(
     version=Version,
     description=Description,
     long_description=Readme,
+    long_description_content_type="text/markdown",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
