@@ -1,6 +1,6 @@
-=============================
- barista API Client (Python)
-=============================
+===========================
+ decaf API Client (Python)
+===========================
 
   **TODO:** Provide a complete README file.
 

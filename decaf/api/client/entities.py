@@ -1,7 +1,7 @@
 from dataclasses import dataclass, fields
 from typing import TypeVar, Type, Dict, Any, List
 
-from barista.api.client.machinery import Client
+from .machinery import Client
 
 
 #: Defines a generic type variable for value subclasses.
