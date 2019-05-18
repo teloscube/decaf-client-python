@@ -11,7 +11,7 @@ from setuptools import setup
 Name = "decaf-api-client"
 
 #: Defines the description of this package.
-Description = "decaf API Client"
+Description = "DECAF API Client"
 
 #: Defines the package root directory.
 BaseDir = os.path.abspath(os.path.dirname(__file__))
