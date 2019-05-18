@@ -1,5 +1,16 @@
-VERS: 2019-04-16 ------- 0.0.2
+VERS: 2019-05-18 ------- 0.0.3
 
+    * 2019-05-18 2d88cb1 [release] Bump version to 0.0.3 (vst@vsthost.com)
+    * 2019-05-18 6176470 [chore] Adapt setup to README.md (vst@vsthost.com)
+    * 2019-05-18 0e4ad31 [chore] Convert README from .rst to .md (vst@vsthost.com)
+    * 2019-05-18 b3e58f9 [chore] Upgrade requests dependency (vst@vsthost.com)
+    * 2019-05-18 643cb5f [chore] Rename package to decaf.api.client (vst@vsthost.com)
+    * 2019-04-16 bb66fda [chore] Version bumped to 0.0.3.dev0 (vst@vsthost.com)
+
+VERS: 2019-04-16 6dc6615 0.0.2 (vst@vsthost.com)
+
+    * 2019-04-16 1984637 Merge branch '0.0.2' (vst@vsthost.com)
+    * 2019-04-16 747dd8c [release] Change log updated (vst@vsthost.com)
     * 2019-04-16 d3cdc74 [release] Version bumped to 0.0.2 (vst@vsthost.com)
     * 2019-03-07 23be6ea [improve] Support for remote value collections (vst@vsthost.com)
     * 2019-03-07 77c19bc [fix] Entity endpoint attribute fix (vst@vsthost.com)

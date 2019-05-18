@@ -11,7 +11,7 @@ from setuptools import setup
 Name = "decaf-api-client"
 
 #: Defines the description of this package.
-Description = "decaf API Client"
+Description = "DECAF API Client"
 
 #: Defines the package root directory.
 BaseDir = os.path.abspath(os.path.dirname(__file__))
@@ -25,10 +25,6 @@ Version = re.search(VersionRE, open(f"{BaseDir}/decaf/api/client/__init__.py", e
 #: Defines the README file contents.
 with open(os.path.join(BaseDir, "README.md")) as cfile:
     Readme = cfile.read()
-
-#: Defines the LICENSE file contents.
-with open(os.path.join(BaseDir, "LICENSE")) as cfile:
-    License = cfile.read()
 
 #: Defines a list of required libraries.
 Requirements = [
@@ -64,7 +60,6 @@ setup(
     author="Vehbi Sinan Tunalioglu",
     author_email="vst@vsthost.com",
     url="https://github.com/telostat/decaf-api-client-python",
-    license=License,
     packages=[
         "decaf.api.client"
     ],
