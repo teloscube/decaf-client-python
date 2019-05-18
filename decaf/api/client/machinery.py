@@ -11,7 +11,7 @@ from requests.auth import AuthBase
 
 class RemoteException(Exception):
     """
-    Defines a exception class for remote *barista* communication errors.
+    Defines a exception class for remote *DECAF* communication errors.
     """
     pass
 
@@ -112,7 +112,7 @@ class CRequest:
 @dataclass(frozen=True)
 class Client:
     """
-    Provides a high-level client implementation for barista API.
+    Provides a high-level client implementation for DECAF API.
     """
 
     #: Defines the base API URI.

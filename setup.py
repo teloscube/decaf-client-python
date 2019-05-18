@@ -8,10 +8,10 @@ import re
 from setuptools import setup
 
 #: Defines the name of this package.
-Name = "barista-api-client"
+Name = "decaf-api-client"
 
 #: Defines the description of this package.
-Description = "barista API Client"
+Description = "DECAF API Client"
 
 #: Defines the package root directory.
 BaseDir = os.path.abspath(os.path.dirname(__file__))
@@ -20,19 +20,15 @@ BaseDir = os.path.abspath(os.path.dirname(__file__))
 VersionRE = r"__version__\s*=\s*['\"]([^'\"]*)['\"]"
 
 #: Defines the version of this package.
-Version = re.search(VersionRE, open(f"{BaseDir}/barista/api/client/__init__.py", encoding="utf_8_sig").read()).group(1)
+Version = re.search(VersionRE, open(f"{BaseDir}/decaf/api/client/__init__.py", encoding="utf_8_sig").read()).group(1)
 
 #: Defines the README file contents.
-with open(os.path.join(BaseDir, "README.rst")) as cfile:
+with open(os.path.join(BaseDir, "README.md")) as cfile:
     Readme = cfile.read()
-
-#: Defines the LICENSE file contents.
-with open(os.path.join(BaseDir, "LICENSE")) as cfile:
-    License = cfile.read()
 
 #: Defines a list of required libraries.
 Requirements = [
-    "requests==2.21.0"
+    "requests==2.22.0"
 ]
 
 #: Defines extra requirements for various other purposes.
@@ -53,6 +49,7 @@ setup(
     version=Version,
     description=Description,
     long_description=Readme,
+    long_description_content_type="text/markdown",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
@@ -62,10 +59,9 @@ setup(
     ],
     author="Vehbi Sinan Tunalioglu",
     author_email="vst@vsthost.com",
-    url="https://github.com/telostat/barista-api-client-python",
-    license=License,
+    url="https://github.com/telostat/decaf-api-client-python",
     packages=[
-        "barista.api.client"
+        "decaf.api.client"
     ],
     include_package_data=True,
     zip_safe=False,
