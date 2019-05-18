@@ -26,10 +26,6 @@ Version = re.search(VersionRE, open(f"{BaseDir}/decaf/api/client/__init__.py", e
 with open(os.path.join(BaseDir, "README.md")) as cfile:
     Readme = cfile.read()
 
-#: Defines the LICENSE file contents.
-with open(os.path.join(BaseDir, "LICENSE")) as cfile:
-    License = cfile.read()
-
 #: Defines a list of required libraries.
 Requirements = [
     "requests==2.22.0"
@@ -64,7 +60,6 @@ setup(
     author="Vehbi Sinan Tunalioglu",
     author_email="vst@vsthost.com",
     url="https://github.com/telostat/decaf-api-client-python",
-    license=License,
     packages=[
         "decaf.api.client"
     ],
