@@ -32,7 +32,7 @@ with open(os.path.join(BaseDir, "LICENSE")) as cfile:
 
 #: Defines a list of required libraries.
 Requirements = [
-    "requests==2.21.0"
+    "requests==2.22.0"
 ]
 
 #: Defines extra requirements for various other purposes.
