@@ -1,7 +1,9 @@
+import json
 import re
 import time
 import urllib.parse
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
 import requests
@@ -298,3 +300,19 @@ class Client:
             return True, content["result"]
         else:
             raise CError("Unknown response from Job status endpoint", -1, content)
+
+    @classmethod
+    def from_profile(cls, name: str, cpath: Optional[Path] = None) -> "Client":
+        """
+        Attempts the create a `Client` for the given profile name.
+        """
+        ## If we don't have a configuration path, use the default:
+        if cpath is None:
+            cpath = Path.home() / ".decaf.json"
+
+        ## Attempt to read in the configuration:
+        with cpath.open() as ifile:
+            profile = {p["name"]: p for p in json.load(ifile)["profiles"]}[name]
+
+        ## Build the client and return:
+        return Client(url=profile["url"], key=profile["key"], scr=profile["secret"])
