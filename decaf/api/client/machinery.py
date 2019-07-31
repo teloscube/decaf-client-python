@@ -1,7 +1,9 @@
+import json
 import re
 import time
 import urllib.parse
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
 import requests
@@ -252,6 +254,33 @@ class Client:
         ## Return the data:
         return response.json()
 
+    def put(self, endpoint: str, params: RData = None, headers: RHeads = None, json: RJson = None, timeout: RTimeout = None) -> Any:  # noqa: E501
+        """
+        Issues a PUT request to the remote API endpoint which returns a JSON response.
+
+        This is a convenience method. For more control over the request, use :meth:`Client.request` method.
+
+        :param endpoint:    Relative path for the remote API endpoint URL.
+        :param params:      Request parameters, if any.
+        :param headers:     Request headers, if any.
+        :param json:        Data which can be marshalled into a JSON payload.
+        :param timeout:     Request timeout, if any.
+        :return:            Response data as a Python primitive.
+        :raises:            :class:`CError`
+        """
+        ## Prepare the request:
+        request = CRequest(endpoint, method="PUT", params=params, json=json, headers=headers, timeout=timeout)
+
+        ## Attempt to post the response:
+        response = self.request(request)
+
+        ## Check the status code:
+        if response.status_code > 299:
+            raise CError("Error while posting to remote endpoint", response.status_code, response.content)
+
+        ## Return the data:
+        return response.json()
+
     @property
     def version(self) -> str:
         """
@@ -298,3 +327,19 @@ class Client:
             return True, content["result"]
         else:
             raise CError("Unknown response from Job status endpoint", -1, content)
+
+    @classmethod
+    def from_profile(cls, name: str, cpath: Optional[Path] = None) -> "Client":
+        """
+        Attempts the create a `Client` for the given profile name.
+        """
+        ## If we don't have a configuration path, use the default:
+        if cpath is None:
+            cpath = Path.home() / ".decaf.json"
+
+        ## Attempt to read in the configuration:
+        with cpath.open() as ifile:
+            profile = {p["name"]: p for p in json.load(ifile)["profiles"]}[name]
+
+        ## Build the client and return:
+        return Client(url=profile["url"], key=profile["key"], scr=profile["secret"])

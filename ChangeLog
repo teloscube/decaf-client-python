@@ -1,5 +1,15 @@
-VERS: 2019-05-18 ------- 0.0.3
+VERS: 2019-07-31 ------- 0.0.4
 
+    * 2019-07-31 a143018 Add put method to the client (vst@vsthost.com)
+    * 2019-05-30 764faa8 Create client from profile (vst@vsthost.com)
+    * 2019-05-18 5f52572 [chore] Bump version to 0.0.4.dev0 (vst@vsthost.com)
+
+VERS: 2019-05-18 1bcd54a 0.0.3 (vst@vsthost.com)
+
+    * 2019-05-18 90e269d Merge branch '0.0.3' (vst@vsthost.com)
+    * 2019-05-18 9eaf384 [fix] Fix README.md and setup.py (vst@vsthost.com)
+    * 2019-05-18 bd7b714 [fix] Fix packaging (vst@vsthost.com)
+    * 2019-05-18 79e7758 [release] Update change log (vst@vsthost.com)
     * 2019-05-18 2d88cb1 [release] Bump version to 0.0.3 (vst@vsthost.com)
     * 2019-05-18 6176470 [chore] Adapt setup to README.md (vst@vsthost.com)
     * 2019-05-18 0e4ad31 [chore] Convert README from .rst to .md (vst@vsthost.com)
