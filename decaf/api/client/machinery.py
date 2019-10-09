@@ -15,6 +15,7 @@ class RemoteException(Exception):
     """
     Defines a exception class for remote *DECAF* communication errors.
     """
+
     pass
 
 
@@ -227,7 +228,9 @@ class Client:
         ## Return the data:
         return response.json()
 
-    def post(self, endpoint: str, params: RData = None, headers: RHeads = None, json: RJson = None, timeout: RTimeout = None) -> Any:  # noqa: E501
+    def post(
+        self, endpoint: str, params: RData = None, headers: RHeads = None, json: RJson = None, timeout: RTimeout = None
+    ) -> Any:
         """
         Issues a POST request to the remote API endpoint which returns a JSON response.
 
@@ -254,7 +257,9 @@ class Client:
         ## Return the data:
         return response.json()
 
-    def put(self, endpoint: str, params: RData = None, headers: RHeads = None, json: RJson = None, timeout: RTimeout = None) -> Any:  # noqa: E501
+    def put(
+        self, endpoint: str, params: RData = None, headers: RHeads = None, json: RJson = None, timeout: RTimeout = None
+    ) -> Any:
         """
         Issues a PUT request to the remote API endpoint which returns a JSON response.
 
