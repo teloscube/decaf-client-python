@@ -1,5 +1,5 @@
 from dataclasses import dataclass, fields
-from typing import TypeVar, Type, Dict, Any, List
+from typing import TypeVar, Type, Dict, Any, List, ClassVar
 
 from .machinery import Client
 
@@ -20,6 +20,9 @@ class Value:
     """
     Provides the base class for remote value models.
     """
+
+    #: Defines the endpoint class attribute.
+    __endpoint: ClassVar[str]
 
     def __init_subclass__(cls, **kwargs: Any) -> None:
         ## Get the endpoint URI path segment:
@@ -53,6 +56,9 @@ class Entity:
 
     #: Defines the globally unique identifier of the entity.
     guid: str
+
+    #: Defines the endpoint class attribute.
+    __endpoint: ClassVar[str]
 
     def __init_subclass__(cls, **kwargs: Any) -> None:
         ## Get the endpoint URI path segment:

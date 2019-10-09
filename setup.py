@@ -37,6 +37,7 @@ RequirementsExtras = {
         "flake8",
         "ipython",
         "mypy",
+        "pytest",
         "tox",
         "twine",
         "wheel",
