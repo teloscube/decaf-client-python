@@ -286,6 +286,35 @@ class Client:
         ## Return the data:
         return response.json()
 
+    def patch(
+        self, endpoint: str, params: RData = None, headers: RHeads = None, json: RJson = None, timeout: RTimeout = None
+    ) -> Any:  # noqa: E501
+        """
+        Issues a PATCH request to the remote API endpoint which returns a JSON response.
+
+        This is a convenience method. For more control over the request, use :meth:`Client.request` method.
+
+        :param endpoint:    Relative path for the remote API endpoint URL.
+        :param params:      Request parameters, if any.
+        :param headers:     Request headers, if any.
+        :param json:        Data which can be marshalled into a JSON payload.
+        :param timeout:     Request timeout, if any.
+        :return:            Response data as a Python primitive.
+        :raises:            :class:`CError`
+        """
+        ## Prepare the request:
+        request = CRequest(endpoint, method="PATCH", params=params, json=json, headers=headers, timeout=timeout)
+
+        ## Attempt to post the response:
+        response = self.request(request)
+
+        ## Check the status code:
+        if response.status_code > 299:
+            raise CError("Error while posting to remote endpoint", response.status_code, response.content)
+
+        ## Return the data:
+        return response.json()
+
     @property
     def version(self) -> str:
         """
