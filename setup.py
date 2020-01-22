@@ -62,9 +62,8 @@ setup(
     author="Vehbi Sinan Tunalioglu",
     author_email="vst@vsthost.com",
     url="https://github.com/telostat/decaf-api-client-python",
-    packages=[
-        "decaf.api.client"
-    ],
+    package_data={"decaf.api.client": ["py.typed"]},
+    packages=["decaf.api.client"],
     include_package_data=True,
     zip_safe=False,
     install_requires=Requirements,
