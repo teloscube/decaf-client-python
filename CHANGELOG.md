@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.0.6 (2020-01-28)
+
+### Bug Fixes
+
+* **build:** add dataclasses dependency (Python36), simplify setup.py ([4d65633](https://github.com/telostat/decaf-api-client-python/commit/4d6563394ea66f1f0c5ea4123411fee6b88dba48))
+
 ### 0.0.5 (2020-01-22)
 
 ### Features
