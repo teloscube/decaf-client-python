@@ -12,6 +12,7 @@ pytest = "*"
 tox = "*"
 twine = "*"
 wheel = "*"
+isort = "*"
 
 [packages]
 decaf-api-client = {editable = true,path = "."}
