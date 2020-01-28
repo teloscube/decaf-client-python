@@ -1,13 +1,12 @@
-import json
 import re
 import time
 import urllib.parse
 from dataclasses import dataclass
+from json import load as loadjson
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
 import requests
-from requests import Response
 from requests.auth import AuthBase
 
 
@@ -173,7 +172,7 @@ class Client:
         """
         return f"Key {self.key}:{self.scr}"
 
-    def request(self, request: CRequest) -> Response:  # noqa: ignore=C901
+    def request(self, request: CRequest) -> requests.Response:  # noqa: ignore=C901
         """
         Provides a low level abstraction for API requests.
         """
@@ -373,7 +372,7 @@ class Client:
 
         ## Attempt to read in the configuration:
         with cpath.open() as ifile:
-            profile = {p["name"]: p for p in json.load(ifile)["profiles"]}[name]
+            profile = {p["name"]: p for p in loadjson(ifile)["profiles"]}[name]
 
         ## Build the client and return:
         return Client(url=profile["url"], key=profile["key"], scr=profile["secret"])

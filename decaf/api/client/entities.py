@@ -1,8 +1,7 @@
 from dataclasses import dataclass, fields
-from typing import TypeVar, Type, Dict, Any, List, ClassVar
+from typing import Any, ClassVar, Dict, List, Type, TypeVar
 
-from .machinery import Client
-
+from decaf.api.client.machinery import Client
 
 #: Defines a generic type variable for value subclasses.
 V = TypeVar("V", bound="Value")
