@@ -24,7 +24,12 @@ setup(
     packages=["decaf.api.client"],
     include_package_data=True,
     zip_safe=False,
-    install_requires=['dataclasses>=0.6,<1;python_version=="3.6"', "pydantic>=1,<2", "requests>=2,<3"],
+    install_requires=[
+        'dataclasses>=0.6,<1;python_version=="3.6"',
+        "pydantic>=1,<2",
+        "requests>=2,<3",
+        "typing_extensions<3.8",
+    ],
     dependency_links=[],
     scripts=[],
 )
