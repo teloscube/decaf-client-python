@@ -1,7 +1,7 @@
 import os
 import re
 
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
 
 setup(
     name="decaf-api-client",
@@ -21,7 +21,7 @@ setup(
     author_email="vst@vsthost.com",
     url="https://github.com/telostat/decaf-api-client-python",
     package_data={"decaf.api.client": ["py.typed"]},
-    packages=["decaf.api.client"],
+    packages=find_namespace_packages(include=["decaf.*"]),
     include_package_data=True,
     zip_safe=False,
     install_requires=[
