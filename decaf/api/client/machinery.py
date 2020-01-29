@@ -109,7 +109,7 @@ class APIServerErrorBlowup(APIServerError):
 RMethod = Literal["GET", "POST", "PUT", "PATCH", "DELETE"]
 
 #: Defines a type alias for relative path or path segments of the remote API endpoint.
-RPath = Union[str, List[str]]
+RPath = Union[str, List[Union[str, int]]]
 
 #: Defines a type alias for query-string parameters.
 RParams = Dict[str, str]
@@ -246,7 +246,7 @@ class Client:
         'http://example.com/test/test2/test3/4/5/'
         """
         if isinstance(path, list):
-            path = "/".join(i.strip("/") for i in path)
+            path = "/".join(str(i).strip("/") for i in path)
         return urljoin(self.url + "/", re.sub(r"[/]*$", "/", re.sub(r"^[/]*", "", path)))
 
     @property
