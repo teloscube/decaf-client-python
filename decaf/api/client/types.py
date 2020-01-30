@@ -14,7 +14,9 @@ __all__ = [
     "Date",
     "DateTime",
     "GUID",
+    "GroupId",
     "InstitutionId",
+    "PortfolioGroupId",
     "PortfolioId",
     "QuantId",
     "RiskProfileId",
@@ -86,6 +88,12 @@ UserId = NewType("UserId", int)
 
 #: Defines a new-type for DECAF team resource identifier.
 TeamId = NewType("TeamId", int)
+
+#: Defines a new-type for DECAF group resource identifier.
+GroupId = NewType("GroupId", int)
+
+#: Defines a new-type for DECAF portfolio group resource identifier.
+PortfolioGroupId = NewType("PortfolioGroupId", int)
 
 #: Defines a new-type for DECAF resource identifiers which are yet to be declared (of :py:class:`int` type).
 _LaterI = NewType("_LaterI", int)
