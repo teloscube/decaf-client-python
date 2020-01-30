@@ -1,5 +1,5 @@
 """
-This module provides the essential machinery to perform remote API requests.
+This module provides the essential machinery to perform remote API requests and define endpoint client implementations.
 """
 
 __all__ = [
@@ -9,8 +9,15 @@ __all__ = [
     "APIServerErrorBadRequest",
     "APIServerErrorBlowup",
     "APIServerErrorNotFound",
+    "BaseCreateForm",
+    "BasePatchForm",
+    "BaseResource",
+    "BaseUpdateForm",
     "Client",
+    "DeleteEndpoint",
+    "Endpoint",
     "Error",
+    "Missing",
     "RFiles",
     "RHeaders",
     "RMethod",
@@ -18,6 +25,15 @@ __all__ = [
     "RPath",
     "RTimeout",
     "Request",
+    "ResourceCreateEndpoint",
+    "ResourceEndpoint",
+    "ResourceListEndpoint",
+    "ResourcePatchEndpoint",
+    "ResourceRetrieveEndpoint",
+    "ResourceUpdateEndpoint",
+    "StandardResourceEndpoint",
+    "command",
+    "query",
 ]
 
 import re
@@ -25,12 +41,30 @@ import time
 from dataclasses import dataclass
 from json import load as loadjson
 from pathlib import Path
-from typing import Any, BinaryIO, ClassVar, Dict, List, Optional, Set, TextIO, Tuple, Union
+from typing import (
+    Any,
+    BinaryIO,
+    Callable,
+    ClassVar,
+    Dict,
+    Generator,
+    Generic,
+    Iterable,
+    List,
+    Optional,
+    Set,
+    TextIO,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
+from typing_extensions import Literal
 from urllib.parse import urljoin
 
 import requests
+from pydantic import BaseModel, Field
 from requests.auth import AuthBase
-from typing_extensions import Literal
 
 
 @dataclass(frozen=True)
@@ -329,6 +363,8 @@ class Client:
 
         ## Check the status code and return if successful:
         if response.status_code in self._successmap[method]:
+            if not response.content:
+                return None
             return response.content if asis else response.json()
 
         ## We have a remote error. Encode it into an exception and raise it:
@@ -415,3 +451,279 @@ class Client:
 
         ## Build the client and return:
         return Client(url=profile["url"], key=profile["key"], scr=profile["secret"])
+
+
+def query(func: Callable[..., Any]) -> Callable[..., Any]:
+    """
+    Decorates a query method of an endpoint.
+
+    :param func: method to be decorated.
+    :return: Decorated method.
+    """
+    setattr(func, "__decaf_endpoint_method_query__", True)
+    return func
+
+
+def command(func: Callable[..., Any]) -> Callable[..., Any]:
+    """
+    Decorates a command method of an endpoint.
+
+    :param func: method to be decorated.
+    :return: Decorated method.
+    """
+    setattr(func, "__decaf_endpoint_method_command__", True)
+    return func
+
+
+class BaseResource(BaseModel):
+    """
+    Provides a base class for standard DECAF resource models.
+    """
+
+    pass
+
+
+class BaseCreateForm(BaseModel):
+    """
+    Provides a base class for standard DECAF form models for resource creation.
+    """
+
+    pass
+
+
+class BaseUpdateForm(BaseModel):
+    """
+    Provides a base class for standard DECAF form models for resource updation.
+    """
+
+    pass
+
+
+class BasePatchForm(BaseModel):
+    """
+    Provides a base class for standard DECAF form models for resource patching.
+    """
+
+    pass
+
+
+#: Defines a type variable for :py:class:`BaseResource` implementations.
+_R = TypeVar("_R", bound=BaseResource)
+
+#: Defines a type variable for :py:class:`BaseCreateForm` implementations.
+_C = TypeVar("_C", bound=BaseCreateForm)
+
+#: Defines a type variable for :py:class:`BaseUpdateForm` implementations.
+_U = TypeVar("_U", bound=BaseUpdateForm)
+
+#: Defines a type variable for :py:class:`BasePatchForm` implementations.
+_P = TypeVar("_P", bound=BasePatchForm)
+
+#: Defines a type variable for resource identifiers.
+_I = TypeVar("_I", bound=Union[str, int])
+
+
+@dataclass(frozen=True)
+class Endpoint:
+    """
+    Provides a base endpoint class.
+    """
+
+    __slots__ = ["client"]
+
+    #: Underlying client.
+    client: Client
+
+    #: Base path segment for the remote resource URI.
+    endpoint: ClassVar[str]
+
+
+class ResourceEndpoint(Generic[_R], Endpoint):
+    """
+    Provides a base class for resource endpoints.
+    """
+
+    #: Resource model type.
+    resource: ClassVar[Type[_R]]
+
+
+class ResourceListEndpoint(ResourceEndpoint[_R]):
+    """
+    Provides a base class for resource endpoints with ``list`` query method.
+    """
+
+    @query
+    def list(self, params: Optional[RParams] = None) -> Iterable[_R]:
+        """
+        Lists resources.
+
+        :param params: Query parameters.
+        :return: An iterable of resources.
+        :raises APIClientError: In case that there is a problem with client-server communication.
+        :raises APIServerError: In case that there is a server generated error reported via HTTP status codes.
+        """
+        return (
+            self.resource(**i)
+            for i in self.client.request("GET", self.endpoint, params={**(params or {}), "page_size": "-1"})
+        )
+
+
+class ResourceRetrieveEndpoint(Generic[_I, _R], ResourceEndpoint[_R]):
+    """
+    Provides a base class for resource endpoints with ``retrieve`` query method.
+    """
+
+    @query
+    def retrieve(self, ident: _I) -> Optional[_R]:
+        """
+        Attempts to retrieve the resource identified by the given identifier.
+
+        :param ident: Resource identifier.
+        :return: Resource if found, ``None`` otherwise.
+        :raises APIClientError: In case that there is a problem with client-server communication.
+        :raises APIServerError: In case that there is a server generated error reported via HTTP status codes.
+        """
+        try:
+            return self.resource(**self.client.request("GET", [self.endpoint, ident]))
+        except APIServerErrorNotFound:
+            return None
+
+
+class ResourceCreateEndpoint(Generic[_C, _R], ResourceEndpoint[_R]):
+    """
+    Provides a base class for resource endpoints with ``create`` command method.
+    """
+
+    @command
+    def create(self, form: _C) -> _R:
+        """
+        Attempts to create a new resource with the given form data.
+
+        :param form: Resource create form instance.
+        :return: Resource if successfully created.
+        :raises APIClientError: In case that there is a problem with client-server communication.
+        :raises APIServerError: In case that there is a server generated error reported via HTTP status codes.
+        """
+        return self.resource(**self.client.request("POST", self.endpoint, json=_form_payload(form)))
+
+
+class ResourceUpdateEndpoint(Generic[_I, _U, _R], ResourceEndpoint[_R]):
+    """
+    Provides a base class for resource endpoints with ``update`` command method.
+    """
+
+    @command
+    def update(self, ident: _I, form: _U) -> _R:
+        """
+        Attempts to update an existing resource with the given form data.
+
+        :param ident: Identifier of the resource to update.
+        :param form: Resource update form instance.
+        :return: Resource if successfully updated.
+        :raises APIClientError: In case that there is a problem with client-server communication.
+        :raises APIServerError: In case that there is a server generated error reported via HTTP status codes.
+        """
+        return self.resource(**self.client.request("PUT", [self.endpoint, ident], json=_form_payload(form)))
+
+
+class ResourcePatchEndpoint(Generic[_I, _P, _R], ResourceEndpoint[_R]):
+    """
+    Provides a base class for resource endpoints with ``patch`` command method.
+    """
+
+    @command
+    def patch(self, ident: _I, form: _P) -> _R:
+        """
+        Attempts to patch an existing resource with the given form data.
+
+        :param ident: Identifier of the resource to patch.
+        :param form: Resource patch form instance.
+        :return: Resource if successfully patched.
+        :raises APIClientError: In case that there is a problem with client-server communication.
+        :raises APIServerError: In case that there is a server generated error reported via HTTP status codes.
+        """
+        return self.resource(**self.client.request("PATCH", [self.endpoint, ident], json=_form_payload(form)))
+
+
+class DeleteEndpoint(Generic[_I], Endpoint):
+    """
+    Provides a base class for resource endpoints with ``delete`` command method.
+    """
+
+    @command
+    def delete(self, ident: _I) -> None:
+        """
+        Attempts to delete the resource identified by the given identifier.
+
+        :param ident: Identifier of the resource to delete.
+        :raises APIClientError: In case that there is a problem with client-server communication.
+        :raises APIServerError: In case that there is a server generated error reported via HTTP status codes.
+        """
+        self.client.request("DELETE", [self.endpoint, ident])
+
+
+class StandardResourceEndpoint(
+    Generic[_I, _C, _U, _P, _R],
+    ResourceListEndpoint[_R],
+    ResourceRetrieveEndpoint[_I, _R],
+    ResourceCreateEndpoint[_C, _R],
+    ResourceUpdateEndpoint[_I, _U, _R],
+    ResourcePatchEndpoint[_I, _P, _R],
+    DeleteEndpoint[_I],
+    ResourceEndpoint[_R],
+):
+    """
+    Provides a generic base endpoint class definition for standard resources with listing, retrieval, creation,
+    updation, patching and deletion queries/commands.
+    """
+
+    pass
+
+
+def _form_payload(form: Union[BaseCreateForm, BaseUpdateForm, BasePatchForm]) -> Dict[str, Any]:
+    """
+    Compiles HTTP payload from the given form instance.
+
+    This function omits missing values.
+
+    :param form: Form instance.
+    :return: A dictionary of form field name and corresponding value.
+    """
+    return {k: v for k, v in form if not isinstance(v, Missing)}
+
+
+class Missing:
+    """
+    Provides a placeholder value for missing field values.
+    """
+
+    @classmethod
+    def field(cls) -> Any:
+        """
+        Provides a convenience method for creating a ``pydantic`` field for fields defaulting to missing value.
+
+        :return: :py:class:`Field` with missing value as default.
+        """
+        return Field(cls())
+
+    @classmethod
+    def __get_validators__(cls) -> Generator[Any, None, None]:
+        """
+        Makes this class a first class ``pydantic`` field value class.
+
+        :return: Validators.
+        """
+        yield cls.validate
+
+    @staticmethod
+    def validate(v: Any) -> "Missing":
+        """
+        Checks if the given value is a :py:class:`Missing` instance and returns it as is if so.
+
+        :param v: Value to be checked.
+        :return: Value.
+        :raises TypeError: In case that the given value is not a :py:class:`Missing` instance.
+        """
+        if isinstance(v, Missing):
+            return v
+        raise TypeError("'Missing' instance required")
