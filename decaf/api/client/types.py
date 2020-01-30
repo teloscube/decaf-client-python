@@ -5,21 +5,25 @@ This module provides common type definitions along with a comprehensive resource
 __all__ = [
     "AccountId",
     "AccountMngtFeeSchemeId",
+    "AccrualScheduleId",
     "ActionId",
     "AgentId",
     "AnalyticalTypeId",
     "ArtifactId",
     "AssetClassId",
+    "CountryId",
     "Currency",
     "Date",
     "DateTime",
     "GUID",
     "GroupId",
     "InstitutionId",
+    "OHLCId",
     "PortfolioGroupId",
     "PortfolioId",
     "QuantId",
     "RiskProfileId",
+    "ShareClassId",
     "SharingId",
     "StrategyId",
     "Tags",
@@ -94,6 +98,18 @@ GroupId = NewType("GroupId", int)
 
 #: Defines a new-type for DECAF portfolio group resource identifier.
 PortfolioGroupId = NewType("PortfolioGroupId", int)
+
+#: Defines a new-type for DECAF country resource identifier.
+CountryId = NewType("CountryId", str)
+
+#: Defines a new-type for DECAF OHLC series resource identifier.
+OHLCId = NewType("OHLCId", int)
+
+#: Defines a new-type for DECAF share class resource identifier.
+ShareClassId = NewType("ShareClassId", int)
+
+#: Defines a new-type for DECAF accrual schedule resource identifier.
+AccrualScheduleId = NewType("AccrualScheduleId", int)
 
 #: Defines a new-type for DECAF resource identifiers which are yet to be declared (of :py:class:`int` type).
 _LaterI = NewType("_LaterI", int)
