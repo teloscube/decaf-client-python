@@ -1,3 +1,7 @@
+"""
+This module provides common type definitions along with a comprehensive resource identifier catalogue.
+"""
+
 __all__ = [
     "AccountId",
     "AccountMngtFeeSchemeId",
@@ -7,6 +11,8 @@ __all__ = [
     "ArtifactId",
     "AssetClassId",
     "Currency",
+    "Date",
+    "DateTime",
     "GUID",
     "InstitutionId",
     "PortfolioId",
@@ -15,10 +21,16 @@ __all__ = [
     "SharingId",
     "StrategyId",
     "Tags",
+    "TeamId",
+    "TimeDelta",
+    "UserId",
     "_LaterI",
     "_LaterS",
 ]
 
+from datetime import date as Date
+from datetime import datetime as DateTime
+from datetime import timedelta as TimeDelta
 from typing import NewType, Set
 
 #: Defines a type alias for globally unique resource identifiers.
@@ -68,6 +80,12 @@ AnalyticalTypeId = NewType("AnalyticalTypeId", int)
 
 #: Defines a new-type for DECAF institution sharing resource identifier.
 SharingId = NewType("SharingId", int)
+
+#: Defines a new-type for DECAF user resource identifier.
+UserId = NewType("UserId", int)
+
+#: Defines a new-type for DECAF team resource identifier.
+TeamId = NewType("TeamId", int)
 
 #: Defines a new-type for DECAF resource identifiers which are yet to be declared (of :py:class:`int` type).
 _LaterI = NewType("_LaterI", int)

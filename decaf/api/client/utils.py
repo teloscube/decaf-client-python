@@ -1,7 +1,6 @@
 __all__ = ["make_lookup_table"]
 
 from typing import Dict, Iterable, TypeVar
-
 from typing_extensions import Protocol
 
 #: Defines a type alias for resource identifiers.
