@@ -4,11 +4,15 @@ This module provides the essential machinery to perform remote API requests and 
 
 __all__ = [
     "APIClientError",
+    "APIHeaderAuthorization",
+    "APIKeyAuthorization",
     "APIServerError",
     "APIServerErrorBadAuthorization",
     "APIServerErrorBadRequest",
     "APIServerErrorBlowup",
     "APIServerErrorNotFound",
+    "APITokenAuthorization",
+    "Authorization",
     "BaseCreateForm",
     "BasePatchForm",
     "BaseResource",
@@ -38,7 +42,8 @@ __all__ = [
 
 import re
 import time
-from dataclasses import dataclass
+from abc import abstractmethod
+from dataclasses import dataclass, field
 from json import load as loadjson
 from pathlib import Path
 from typing import (
@@ -192,20 +197,72 @@ class Request:
     timeout: Optional[RTimeout] = None
 
 
+class Authorization:
+    """
+    Provides a base class for client authorization.
+    """
+
+    @abstractmethod
+    def headers(self) -> Dict[str, str]:
+        """
+        Provides the client authorization header for HTTP requests.
+        """
+        pass
+
+
+@dataclass(frozen=True)
+class APIKeyAuthorization(Authorization):
+    """
+    Provides API key authorization method.
+    """
+
+    #: Defines the API key.
+    key: str = field(repr=False)
+
+    #: Defines the API secret.
+    scr: str = field(repr=False)
+
+    def headers(self) -> Dict[str, str]:
+        return {"Authorization": f"Key {self.key}:{self.scr}"}
+
+
+@dataclass(frozen=True)
+class APITokenAuthorization(Authorization):
+    """
+    Provides API token authorization method.
+    """
+
+    #: API token.
+    token: str = field(repr=False)
+
+    def headers(self) -> Dict[str, str]:
+        return {"Authorization": f"Token {self.token}"}
+
+
+@dataclass(frozen=True)
+class APIHeaderAuthorization(Authorization):
+    """
+    Provides authorization method directly from authentication headers.
+    """
+
+    #: HTTP headers
+    buffer: RHeaders
+
+    def headers(self) -> Dict[str, str]:
+        return self.buffer
+
+
 @dataclass(frozen=True)
 class Client:
     """
     Provides a high-level client implementation for DECAF API.
     """
 
-    #: Defines the base API URI.
+    #: Base API URI.
     url: str
 
-    #: Defines the API key.
-    key: str
-
-    #: Defines the API secret.
-    scr: str
+    #: API authorization.
+    auth: Authorization
 
     class _NullAuth(AuthBase):
         """
@@ -231,10 +288,10 @@ class Client:
         """
         Sanitizes the base API URL.
 
-        >>> client = Client("http://example.com///", "key", "scr")
+        >>> client = Client("http://example.com///", Authorization())
         >>> client.url
         'http://example.com'
-        >>> client = Client("http://example.com/api//", "key", "scr")
+        >>> client = Client("http://example.com/api//", Authorization())
         >>> client.url
         'http://example.com/api'
         """
@@ -247,7 +304,7 @@ class Client:
         :param path: Relative path or path segments of the remote API endpoint.
         :return: Remote endpoint URL.
 
-        >>> client = Client("http://example.com///", "key", "scr")
+        >>> client = Client("http://example.com///", Authorization())
         >>> client.urlize("test")
         'http://example.com/test/'
         >>> client.urlize("test/")
@@ -283,13 +340,6 @@ class Client:
             path = "/".join(str(i).strip("/") for i in path)
         return urljoin(self.url + "/", re.sub(r"[/]*$", "/", re.sub(r"^[/]*", "", path)))
 
-    @property
-    def _auth_head_value(self) -> str:
-        """
-        ``Authentication`` header value.
-        """
-        return f"Key {self.key}:{self.scr}"
-
     def run(self, request: Request) -> requests.Response:
         """
         Runs the given request and returns the raw response.
@@ -306,7 +356,7 @@ class Client:
                 data=request.data,
                 json=request.json,
                 files=request.files,
-                headers={**(request.headers or {}), "Authorization": self._auth_head_value},
+                headers={**(request.headers or {}), **self.auth.headers()},
                 timeout=request.timeout,
                 auth=self._noop_auth,
             )
@@ -450,7 +500,44 @@ class Client:
             profile = {p["name"]: p for p in loadjson(ifile)["profiles"]}[name]
 
         ## Build the client and return:
-        return Client(url=profile["url"], key=profile["key"], scr=profile["secret"])
+        return Client(profile["url"], APIKeyAuthorization(key=profile["key"], scr=profile["secret"]))
+
+    @classmethod
+    def from_apikey(cls, url: str, key: str, secret: str) -> "Client":
+        """
+        Attempts the create a :py:class:`Client` instance for the given API key/secret.
+
+        :param url: Base API url.
+        :param key: API key.
+        :param secret: API secret.
+        :return: A :py:class:`Client` instance.
+        """
+        return Client(url, APIKeyAuthorization(key, secret))
+
+    @classmethod
+    def from_apitoken(cls, url: str, token: str) -> "Client":
+        """
+        Attempts the create a :py:class:`Client` instance for the given API token.
+
+        Note that API tokens have shorter expiry than API keys. You may wish to choose API keys for clients with
+        longer life time.
+
+        :param url: Base API url.
+        :param token: API token.
+        :return: A :py:class:`Client` instance.
+        """
+        return Client(url, APITokenAuthorization(token))
+
+    @classmethod
+    def from_headers(cls, url: str, headers: RHeaders) -> "Client":
+        """
+        Attempts the create a :py:class:`Client` instance for the given HTTP headers.
+
+        :param url: Base API url.
+        :param headers: HTTP authentication headers.
+        :return: A :py:class:`Client` instance.
+        """
+        return Client(url, APIHeaderAuthorization(headers))
 
 
 def query(func: Callable[..., Any]) -> Callable[..., Any]:
