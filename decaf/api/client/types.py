@@ -10,11 +10,14 @@ __all__ = [
     "AgentId",
     "AnalyticalTypeId",
     "ArtifactId",
+    "ArtifactType",
     "AssetClassId",
+    "ContainerType",
     "CountryId",
     "Currency",
     "Date",
     "DateTime",
+    "DateType",
     "GUID",
     "GroupId",
     "InstitutionId",
@@ -37,6 +40,7 @@ __all__ = [
 from datetime import date as Date
 from datetime import datetime as DateTime
 from datetime import timedelta as TimeDelta
+from enum import Enum
 from typing import NewType, Set
 
 #: Defines a type alias for globally unique resource identifiers.
@@ -116,3 +120,54 @@ _LaterI = NewType("_LaterI", int)
 
 #: Defines a new-type for DECAF resource identifiers which are yet to be declared (of :py:class:`str` type).
 _LaterS = NewType("_LaterS", int)
+
+
+class ContainerType(Enum):
+    """
+    Provides container types.
+    """
+
+    Account = "account"
+    Portfolio = "portfolio"
+    Institution = "institution"
+    Team = "team"
+    PortfolioGroup = "portfoliogroup"
+
+
+class DateType(Enum):
+    """
+    Provides date types.
+    """
+
+    Commitment = "commitment"
+    Settlement = "settlement"
+
+
+class ArtifactType(Enum):
+    """
+    Provides artifact types.
+    """
+
+    GNRC = "GX"
+    CASH = "CCY"
+    DEPO = "DEPO"
+    LOAN = "LOAN"
+    CODC = "COD"
+    XOPT = "FXOPT"
+    XFUT = "FXFUT"
+    XFWD = "FXFWD"
+    BOND = "BOND"
+    ZCPN = "ZCPN"
+    FUTR = "FUT"
+    FWRD = "FWD"
+    SHRE = "SHRE"
+    OPTN = "OPT"
+    STRP = "SP"
+    DCIP = "DCIP"
+    ELNP = "ELNP"
+    SPMF = "SPMF"
+    FXMF = "FXMF"
+    INSR = "INSR"
+    OTHR = "OTHER"
+    COMM = "COMM"
+    CFDC = "CFD"

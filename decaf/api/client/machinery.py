@@ -151,7 +151,7 @@ RMethod = Literal["GET", "POST", "PUT", "PATCH", "DELETE"]
 RPath = Union[str, List[Union[str, int]]]
 
 #: Defines a type alias for query-string parameters.
-RParams = Dict[str, str]
+RParams = Dict[str, Union[str, int, List[str], List[int]]]
 
 #: Defines a type alias for HTTP request headers.
 RHeaders = Dict[str, str]
