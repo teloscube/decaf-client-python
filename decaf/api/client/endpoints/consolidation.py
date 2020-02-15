@@ -1,6 +1,22 @@
 __all__ = [
-    "ConsolidationResource",
     "Consolidation",
+    "ConsolidationAccount",
+    "ConsolidationAccountHolding",
+    "ConsolidationAccounts",
+    "ConsolidationContainer",
+    "ConsolidationContainers",
+    "ConsolidationFXRate",
+    "ConsolidationHolding",
+    "ConsolidationHoldingArtifact",
+    "ConsolidationHoldingArtifactType",
+    "ConsolidationHoldingInvestment",
+    "ConsolidationHoldingTags",
+    "ConsolidationHoldingTagsClassificationNode",
+    "ConsolidationHoldingValuation",
+    "ConsolidationHoldingValuePair",
+    "ConsolidationHoldingValuePairAbsNet",
+    "ConsolidationResource",
+    "ConsolidationSubHolding",
 ]
 
 from dataclasses import dataclass
@@ -29,22 +45,25 @@ class ConsolidationAccount(BaseModel):
     guid: GUID
     name: str
 
+    def __lt__(self, other: "ConsolidationAccount") -> bool:
+        return self.name < other.name
+
 
 class ConsolidationAccounts(BaseModel):
     custody: List[ConsolidationAccount]
     journal: List[ConsolidationAccount]
 
 
-class HoldingArtifactType(BaseModel):
+class ConsolidationHoldingArtifactType(BaseModel):
     id: ArtifactType
     name: str
     order: int
 
 
-class HoldingArtifact(BaseModel):
+class ConsolidationHoldingArtifact(BaseModel):
     id: ArtifactId
     guid: GUID
-    type: HoldingArtifactType
+    type: ConsolidationHoldingArtifactType
     stype: Optional[str]
     symbol: str
     name: Optional[str]
@@ -60,46 +79,49 @@ class HoldingArtifact(BaseModel):
     expiry: Optional[Date]
     underlying_id: Optional[ArtifactId]
 
+    def __lt__(self, other: "ConsolidationHoldingArtifact") -> bool:
+        return self.symbol < other.symbol
 
-class HoldingTagsClassificationNode(BaseModel):
+
+class ConsolidationHoldingTagsClassificationNode(BaseModel):
     name: str
     order: str
 
 
-class HoldingTags(BaseModel):
-    classification: List[HoldingTagsClassificationNode]
+class ConsolidationHoldingTags(BaseModel):
+    classification: List[ConsolidationHoldingTagsClassificationNode]
 
 
-class HoldingValuePair(BaseModel):
+class ConsolidationHoldingValuePair(BaseModel):
     org: Optional[Decimal]
     ref: Optional[Decimal]
 
 
-class HoldingInvestment(BaseModel):
-    px: HoldingValuePair
-    txncosts: HoldingValuePair
-    accrued: HoldingValuePair
-    value: HoldingValuePair
+class ConsolidationHoldingInvestment(BaseModel):
+    px: ConsolidationHoldingValuePair
+    txncosts: ConsolidationHoldingValuePair
+    accrued: ConsolidationHoldingValuePair
+    value: ConsolidationHoldingValuePair
 
 
-class HoldingValuePairAbsNet(BaseModel):
-    net: HoldingValuePair
-    abs: HoldingValuePair
+class ConsolidationHoldingValuePairAbsNet(BaseModel):
+    net: ConsolidationHoldingValuePair
+    abs: ConsolidationHoldingValuePair
 
 
-class HoldingValuation(BaseModel):
-    px: HoldingValuePair
-    accrued: HoldingValuePair
-    value: HoldingValuePairAbsNet
-    exposure: HoldingValuePairAbsNet
+class ConsolidationHoldingValuation(BaseModel):
+    px: ConsolidationHoldingValuePair
+    accrued: ConsolidationHoldingValuePair
+    value: ConsolidationHoldingValuePairAbsNet
+    exposure: ConsolidationHoldingValuePairAbsNet
 
 
-class SubHolding(BaseModel):
-    artifact: HoldingArtifact
+class ConsolidationSubHolding(BaseModel):
+    artifact: ConsolidationHoldingArtifact
     quantity: Decimal
     accounts: List[ConsolidationAccount]
-    investment: HoldingInvestment
-    valuation: HoldingValuation
+    investment: ConsolidationHoldingInvestment
+    valuation: ConsolidationHoldingValuation
     change: Optional[Decimal]
     pnl: Optional[Decimal]
     pnl_to_investment: Optional[Decimal]
@@ -111,14 +133,14 @@ class SubHolding(BaseModel):
         return self.accounts[0]
 
 
-class Holding(BaseModel):
-    artifact: HoldingArtifact
-    tags: HoldingTags
+class ConsolidationHolding(BaseModel):
+    artifact: ConsolidationHoldingArtifact
+    tags: ConsolidationHoldingTags
     quantity: Decimal
     accounts: List[ConsolidationAccount]
-    investment: HoldingInvestment
-    valuation: HoldingValuation
-    children: List[SubHolding]
+    investment: ConsolidationHoldingInvestment
+    valuation: ConsolidationHoldingValuation
+    children: List[ConsolidationSubHolding]
     change: Optional[Decimal]
     pnl: Optional[Decimal]
     pnl_to_investment: Optional[Decimal]
@@ -126,7 +148,7 @@ class Holding(BaseModel):
     lastdate: Date
 
 
-class FXRate(BaseModel):
+class ConsolidationFXRate(BaseModel):
     ccy1: Currency
     ccy2: Currency
     value: Decimal
@@ -134,15 +156,15 @@ class FXRate(BaseModel):
 
 
 @dataclass
-class AccountHolding:
+class ConsolidationAccountHolding:
     account: ConsolidationAccount
-    artifact: HoldingArtifact
+    artifact: ConsolidationHoldingArtifact
     quantity: Decimal
-    investment: HoldingInvestment
-    valuation: HoldingValuation
+    investment: ConsolidationHoldingInvestment
+    valuation: ConsolidationHoldingValuation
     opendate: Date
     lastdate: Date
-    tags: HoldingTags
+    tags: ConsolidationHoldingTags
     change: Optional[Decimal]
     pnl: Optional[Decimal]
     pnl_to_investment: Optional[Decimal]
@@ -155,7 +177,7 @@ class ConsolidationResource(BaseResource):
     ccy: Currency
     containers: ConsolidationContainers
     accounts: ConsolidationAccounts
-    holdings: List[Holding]
+    holdings: List[ConsolidationHolding]
     accruals: List[Any]  # TODO: Complete
     investment: Optional[Decimal]
     valuation_net: Optional[Decimal]
@@ -167,15 +189,15 @@ class ConsolidationResource(BaseResource):
     aum: Decimal
     pnl: Decimal
     pnl_to_investment: Optional[Decimal]
-    fxrates: List[FXRate]
+    fxrates: List[ConsolidationFXRate]
 
-    def get_account_level_holdings(self) -> Iterable[AccountHolding]:
+    def get_account_level_holdings(self) -> Iterable[ConsolidationAccountHolding]:
         """
         Compiles account level holdings.
         """
         for topholding in self.holdings:
             if len(topholding.children) == 0:
-                yield AccountHolding(
+                yield ConsolidationAccountHolding(
                     account=topholding.accounts[0],
                     artifact=topholding.artifact,
                     quantity=topholding.quantity,
@@ -190,7 +212,7 @@ class ConsolidationResource(BaseResource):
                 )
             else:
                 for subholding in topholding.children:
-                    yield AccountHolding(
+                    yield ConsolidationAccountHolding(
                         account=subholding.accounts[0],
                         artifact=subholding.artifact,
                         quantity=subholding.quantity,
