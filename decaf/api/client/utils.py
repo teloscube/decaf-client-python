@@ -11,10 +11,12 @@ __all__ = [
     "percentify",
     "remove_microseconds",
     "skipnone",
+    "sort_and_group_by",
 ]
 
 from decimal import Decimal
-from typing import Callable, Dict, Iterable, Optional, TypeVar, Union
+from itertools import groupby
+from typing import Callable, Dict, Iterable, Optional, Tuple, TypeVar, Union
 from typing_extensions import Protocol
 
 from .types import Date, DateTime
@@ -180,3 +182,21 @@ def make_lookup_table(records: Iterable[WithId[_T]]) -> Dict[_T, WithId[_T]]:
     False
     """
     return {r.id: r for r in records}
+
+
+#: Defines a generic type alias.
+_K = TypeVar("_K")
+
+#: Defines a generic type alias.
+_V = TypeVar("_V")
+
+
+def sort_and_group_by(x: Iterable[_V], key: Callable[[_V], _K]) -> Iterable[Tuple[_K, Iterable[_V]]]:
+    """
+    Sorts and groups an iterable of values by the same key.
+
+    :param x: Iterable of values.
+    :param key: Function to compute the key from a given value.
+    :return: An iterable of tuples of key and iterable of values for the key.
+    """
+    return groupby(sorted(x, key=key), key=key)
