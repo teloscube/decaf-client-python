@@ -151,7 +151,7 @@ RMethod = Literal["GET", "POST", "PUT", "PATCH", "DELETE"]
 RPath = Union[str, List[Union[str, int]]]
 
 #: Defines a type alias for query-string parameters.
-RParams = Dict[str, str]
+RParams = Dict[str, Union[str, int, List[str], List[int]]]
 
 #: Defines a type alias for HTTP request headers.
 RHeaders = Dict[str, str]
@@ -540,7 +540,11 @@ class Client:
         return Client(url, APIHeaderAuthorization(headers))
 
 
-def query(func: Callable[..., Any]) -> Callable[..., Any]:
+#: Defines a generic type alias.
+_T = TypeVar("_T")
+
+
+def query(func: Callable[..., _T]) -> Callable[..., _T]:
     """
     Decorates a query method of an endpoint.
 
@@ -551,7 +555,7 @@ def query(func: Callable[..., Any]) -> Callable[..., Any]:
     return func
 
 
-def command(func: Callable[..., Any]) -> Callable[..., Any]:
+def command(func: Callable[..., _T]) -> Callable[..., _T]:
     """
     Decorates a command method of an endpoint.
 
