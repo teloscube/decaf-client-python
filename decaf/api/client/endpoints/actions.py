@@ -21,7 +21,8 @@ from decaf.api.client.types import (
     Tags,
     UserId,
     _LaterI,
-    _LaterS)
+    _LaterS,
+)
 
 
 class ActionResource(BaseResource):

@@ -4,23 +4,14 @@ __all__ = [
     "Stocks",
 ]
 
-from datetime import datetime
+import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
-
 from typing_extensions import Literal
 
 from ..machinery import BaseResource, ResourceEndpoint, query
-from ..types import (
-    GUID,
-    AccountId,
-    ArtifactId,
-    ArtifactType,
-    PortfolioId,
-    TeamId,
-    InstitutionId,
-)
+from ..types import GUID, AccountId, ArtifactId, ArtifactType, InstitutionId, PortfolioId, TeamId
 
 
 class StockResource(BaseResource):
