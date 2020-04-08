@@ -1,5 +1,20 @@
 # Changelog
 
+### [0.0.8](https://github.com/telostat/decaf-api-client-python/compare/0.0.7...0.0.8) (2020-04-08)
+
+
+### Features
+
+* **endpoints:** add actions endpoint (read-only) ([99f7b75](https://github.com/telostat/decaf-api-client-python/commit/99f7b75b8fc4b32e6cf8f55a18b0726afcab63ee))
+* **endpoints:** add artifacts endpoint (read-only) ([e78e68b](https://github.com/telostat/decaf-api-client-python/commit/e78e68b6493984c6b0466252877f300d1bbff817))
+* **endpoints:** add quants endpoint ([b2ac7fb](https://github.com/telostat/decaf-api-client-python/commit/b2ac7fb79a0b5763c00dafd2972bd1738bd64204))
+* **endpoints:** add stocks endpoint ([bd938e0](https://github.com/telostat/decaf-api-client-python/commit/bd938e0f529e27497d2df53b985ce275501c5b45))
+
+
+### Bug Fixes
+
+* use correct type for _LaterS placeholder newtype ([7f1cd91](https://github.com/telostat/decaf-api-client-python/commit/7f1cd916c2870c54c9e714ffa898f7d08b5eeb73))
+
 ### [0.0.7](https://github.com/telostat/decaf-api-client-python/compare/0.0.6...0.0.7) (2020-04-08)
 
 
