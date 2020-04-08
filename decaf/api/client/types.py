@@ -119,7 +119,7 @@ AccrualScheduleId = NewType("AccrualScheduleId", int)
 _LaterI = NewType("_LaterI", int)
 
 #: Defines a new-type for DECAF resource identifiers which are yet to be declared (of :py:class:`str` type).
-_LaterS = NewType("_LaterS", int)
+_LaterS = NewType("_LaterS", str)
 
 
 class ContainerType(Enum):
