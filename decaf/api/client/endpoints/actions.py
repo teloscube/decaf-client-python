@@ -93,7 +93,7 @@ class ActionResource(BaseResource):
     resintr_guid: Optional[GUID]
     resintr_symbol: Optional[str]
     qtyintr: Optional[Decimal]
-    pxmain: Decimal
+    pxmain: Optional[Decimal]
     pxcost: Optional[Decimal]
     pxaux1: Optional[Decimal]
     pxaux2: Optional[Decimal]
