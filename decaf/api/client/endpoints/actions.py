@@ -10,6 +10,7 @@ from decaf.api.client.machinery import BaseResource, ResourceListEndpoint
 from decaf.api.client.types import (
     GUID,
     AccountId,
+    ActionId,
     AgentId,
     ArtifactId,
     Currency,
@@ -26,7 +27,7 @@ from decaf.api.client.types import (
 
 
 class ActionResource(BaseResource):
-    id: AccountId
+    id: ActionId
     guid: GUID
     created: DateTime
     creator: Optional[UserId]

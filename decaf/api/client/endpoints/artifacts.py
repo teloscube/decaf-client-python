@@ -9,7 +9,6 @@ from typing import Any, Dict, Optional
 from decaf.api.client.machinery import BaseResource, ResourceListEndpoint
 from decaf.api.client.types import (
     GUID,
-    AccountId,
     ArtifactId,
     AssetClassId,
     Currency,
@@ -23,7 +22,7 @@ from decaf.api.client.types import (
 
 
 class ArtifactResource(BaseResource):
-    id: AccountId
+    id: ArtifactId
     guid: GUID
     created: DateTime
     creator: Optional[UserId]
