@@ -11,13 +11,13 @@ from typing import List, Optional
 from typing_extensions import Literal
 
 from ..machinery import BaseResource, ResourceEndpoint, query
-from ..types import GUID, AccountId, ArtifactId, ArtifactType, InstitutionId, PortfolioId, TeamId
+from ..types import GUID, AccountId, ArtifactId, ArtifactTypeId, InstitutionId, PortfolioId, TeamId
 
 
 class StockResource(BaseResource):
     artifact: ArtifactId
     artifact_guid: GUID
-    artifact_ctype: ArtifactType
+    artifact_ctype: ArtifactTypeId
     artifact_stype: Optional[str]
     artifact_symbol: str
     artifact_name: Optional[str]

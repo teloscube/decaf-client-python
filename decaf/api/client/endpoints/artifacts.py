@@ -10,6 +10,7 @@ from decaf.api.client.machinery import BaseResource, ResourceListEndpoint
 from decaf.api.client.types import (
     GUID,
     ArtifactId,
+    ArtifactTypeId,
     AssetClassId,
     Currency,
     Date,
@@ -31,7 +32,7 @@ class ArtifactResource(BaseResource):
     incomplete: bool
     cflag: Optional[int]
     type: str
-    ctype: _LaterS
+    ctype: ArtifactTypeId
     stype: Optional[str]
     symbol: str
     name: str
