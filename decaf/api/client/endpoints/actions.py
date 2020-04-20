@@ -11,8 +11,11 @@ from decaf.api.client.types import (
     GUID,
     AccountId,
     ActionId,
+    ActionTypeId,
     AgentId,
+    AnalyticalTypeId,
     ArtifactId,
+    ArtifactTypeId,
     Currency,
     Date,
     DateTime,
@@ -22,7 +25,6 @@ from decaf.api.client.types import (
     Tags,
     UserId,
     _LaterI,
-    _LaterS,
 )
 
 
@@ -33,17 +35,17 @@ class ActionResource(BaseResource):
     creator: Optional[UserId]
     updated: DateTime
     updater: Optional[UserId]
-    ctype: _LaterI
+    ctype: ActionTypeId
     type: str
     stype: Optional[str]
-    atype: Optional[_LaterI]
+    atype: Optional[AnalyticalTypeId]
     cflag: Optional[int]
     commitment: Date
     settlement: Date
     executedat: Optional[str]
     pseudorder: Optional[int]
     resmain_type: str
-    resmain_ctype: _LaterS
+    resmain_ctype: ArtifactTypeId
     resmain_stype: Optional[str]
     accmain: AccountId
     accmain_guid: GUID
