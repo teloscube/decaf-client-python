@@ -1,5 +1,19 @@
 # Changelog
 
+### [0.0.9](https://github.com/telostat/decaf-api-client-python/compare/0.0.8...0.0.9) (2020-05-26)
+
+
+### Features
+
+* **endpoints:** add artifact and action type endpoints, resources ([9faa489](https://github.com/telostat/decaf-api-client-python/commit/9faa489f225f232aab467f6fe90105f632475382))
+* **endpoints:** add analytical types endpoint (read-only) ([834e7ff](https://github.com/telostat/decaf-api-client-python/commit/834e7ffae620427446e5448d8ea7b89d9b88c013))
+
+### Bug Fixes
+
+* **resources:** make ActionResource.pxmain optional ([ee0e485](https://github.com/telostat/decaf-api-client-python/commit/ee0e485958850171da5ba7152d2b89e4bb785846))
+* **resources:** use correct Id types for resources ([f20d011](https://github.com/telostat/decaf-api-client-python/commit/f20d0112d7054b6d67295ea8ec308508e1f3dac0))
+* **endpoints:** use correct ID types for action resource relations ([3c38c47](https://github.com/telostat/decaf-api-client-python/commit/3c38c4792107e6437540c5745fc269b35ceb9c42))
+
 ### [0.0.8](https://github.com/telostat/decaf-api-client-python/compare/0.0.7...0.0.8) (2020-04-08)
 
 
