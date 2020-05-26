@@ -26,7 +26,7 @@ from typing import Any, Iterable, List, Optional
 from pydantic.main import BaseModel
 
 from ..machinery import BaseResource, ResourceEndpoint, query
-from ..types import GUID, AccountId, ArtifactId, ArtifactType, ContainerType, Currency, Date, DateTime, DateType
+from ..types import GUID, AccountId, ArtifactId, ArtifactTypeId, ContainerType, Currency, Date, DateTime, DateType
 
 
 class ConsolidationContainer(BaseModel):
@@ -55,7 +55,7 @@ class ConsolidationAccounts(BaseModel):
 
 
 class ConsolidationHoldingArtifactType(BaseModel):
-    id: ArtifactType
+    id: ArtifactTypeId
     name: str
     order: int
 

@@ -7,10 +7,11 @@ __all__ = [
     "AccountMngtFeeSchemeId",
     "AccrualScheduleId",
     "ActionId",
+    "ActionTypeId",
     "AgentId",
     "AnalyticalTypeId",
     "ArtifactId",
-    "ArtifactType",
+    "ArtifactTypeId",
     "AssetClassId",
     "ContainerType",
     "CountryId",
@@ -58,8 +59,14 @@ QuantId = NewType("QuantId", int)
 #: Defines a new-type for DECAF artifact resource identifier.
 ArtifactId = NewType("ArtifactId", int)
 
+#: Defines a new-type for DECAF artifact type resource identifier.
+ArtifactTypeId = NewType("ArtifactTypeId", str)
+
 #: Defines a new-type for DECAF action resource identifier.
 ActionId = NewType("ActionId", int)
+
+#: Defines a new-type for DECAF action type resource identifier.
+ActionTypeId = NewType("ActionTypeId", int)
 
 #: Defines a new-type for DECAF account resource identifier.
 AccountId = NewType("AccountId", int)
@@ -141,33 +148,3 @@ class DateType(Enum):
 
     Commitment = "commitment"
     Settlement = "settlement"
-
-
-class ArtifactType(Enum):
-    """
-    Provides artifact types.
-    """
-
-    GNRC = "GX"
-    CASH = "CCY"
-    DEPO = "DEPO"
-    LOAN = "LOAN"
-    CODC = "COD"
-    XOPT = "FXOPT"
-    XFUT = "FXFUT"
-    XFWD = "FXFWD"
-    BOND = "BOND"
-    ZCPN = "ZCPN"
-    FUTR = "FUT"
-    FWRD = "FWD"
-    SHRE = "SHRE"
-    OPTN = "OPT"
-    STRP = "SP"
-    DCIP = "DCIP"
-    ELNP = "ELNP"
-    SPMF = "SPMF"
-    FXMF = "FXMF"
-    INSR = "INSR"
-    OTHR = "OTHER"
-    COMM = "COMM"
-    CFDC = "CFD"

@@ -7,11 +7,22 @@ from decimal import Decimal
 from typing import Optional
 
 from decaf.api.client.machinery import BaseResource, ResourceListEndpoint
-from decaf.api.client.types import GUID, AccountId, ActionId, ArtifactId, Currency, Date, DateTime, UserId, _LaterI
+from decaf.api.client.types import (
+    GUID,
+    AccountId,
+    ActionId,
+    ArtifactId,
+    Currency,
+    Date,
+    DateTime,
+    QuantId,
+    UserId,
+    _LaterI,
+)
 
 
 class QuantResource(BaseResource):
-    id: AccountId
+    id: QuantId
     guid: GUID
     created: DateTime
     creator: Optional[UserId]
