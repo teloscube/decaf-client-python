@@ -34,7 +34,7 @@ from decaf.api.client.types import (
 
 
 class PortfolioResource(BaseResource):
-    id: TeamId
+    id: PortfolioId
     guid: GUID
     created: DateTime
     creator: Optional[UserId]
