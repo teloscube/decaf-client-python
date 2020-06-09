@@ -6,7 +6,7 @@ __all__ = [
 from decimal import Decimal
 from typing import Any, Dict, Optional
 
-from decaf.api.client.machinery import BaseResource, ResourceListEndpoint
+from decaf.api.client.machinery import BaseResource, ResourceListEndpoint, ResourceRetrieveEndpoint
 from decaf.api.client.types import (
     GUID,
     ArtifactId,
@@ -83,6 +83,6 @@ class ArtifactResource(BaseResource):
     attributes: Dict[str, Any]
 
 
-class Artifacts(ResourceListEndpoint[ArtifactResource]):
+class Artifacts(ResourceListEndpoint[ArtifactResource], ResourceRetrieveEndpoint[ArtifactId, ArtifactResource]):
     endpoint = "resources"
     resource = ArtifactResource
