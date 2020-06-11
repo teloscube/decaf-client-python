@@ -1,5 +1,17 @@
 # Changelog
 
+### [0.0.10](https://github.com/telostat/decaf-api-client-python/compare/0.0.9...0.0.10) (2020-06-11)
+
+
+### Features
+
+* add artifact resource retriever ([9561fc8](https://github.com/telostat/decaf-api-client-python/commit/9561fc8f4944182c693b97b2170fb8cdfa0343bb))
+
+
+### Bug Fixes
+
+* use correct type for portrolio resource id ([4b83b01](https://github.com/telostat/decaf-api-client-python/commit/4b83b013da3ee4554334af5135708e5614254b14))
+
 ### [0.0.9](https://github.com/telostat/decaf-api-client-python/compare/0.0.8...0.0.9) (2020-05-26)
 
 
