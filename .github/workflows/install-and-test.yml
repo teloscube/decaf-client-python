@@ -9,8 +9,8 @@ jobs:
         uses: actions/checkout@v1
       - name: Setup Python
         uses: actions/setup-python@v1
-      - name: Setup Pipenv
-        uses: dschep/install-pipenv-action@v1
+      - name: Install/uprade pip, setuptools and pipenv
+        run: pip install --upgrade pip setuptools pipenv
       - name: Install packages
         run: pipenv install --dev
       - name: Check for security vulnerabilities and against PEP 508 markers

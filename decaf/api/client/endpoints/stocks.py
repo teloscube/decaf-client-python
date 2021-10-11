@@ -8,6 +8,7 @@ import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
+
 from typing_extensions import Literal
 
 from ..machinery import BaseResource, ResourceEndpoint, query

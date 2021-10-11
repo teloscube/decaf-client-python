@@ -244,7 +244,9 @@ class Consolidation(ResourceEndpoint[ConsolidationResource]):
         """
         return ConsolidationResource(
             **self.client.request(
-                "GET", self.endpoint, params={"datetype": dtype.value, "date": str(date), "ccy": currency},
+                "GET",
+                self.endpoint,
+                params={"datetype": dtype.value, "date": str(date), "ccy": currency},
             )
         )
 
