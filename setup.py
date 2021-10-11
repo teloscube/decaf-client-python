@@ -25,10 +25,10 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'dataclasses>=0.6,<1;python_version=="3.6"',
+        'dataclasses>=0.6;python_version<"3.7"',
         "pydantic>=1,<2",
         "requests>=2,<3",
-        "typing_extensions<3.8",
+        "typing-extensions>=3.7.4.3",
     ],
     dependency_links=[],
     scripts=[],
