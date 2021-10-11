@@ -17,6 +17,7 @@ __all__ = [
 from decimal import Decimal
 from itertools import groupby
 from typing import Callable, Dict, Iterable, Optional, Tuple, TypeVar, Union
+
 from typing_extensions import Protocol
 
 from .types import Date, DateTime
@@ -199,4 +200,4 @@ def sort_and_group_by(x: Iterable[_V], key: Callable[[_V], _K]) -> Iterable[Tupl
     :param key: Function to compute the key from a given value.
     :return: An iterable of tuples of key and iterable of values for the key.
     """
-    return groupby(sorted(x, key=key), key=key)
+    return groupby(sorted(x, key=key), key=key)  # type: ignore
