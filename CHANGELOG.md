@@ -1,5 +1,17 @@
 # Changelog
 
+### [0.0.11](https://github.com/teloscube/decaf-client-python/compare/0.0.10...0.0.11) (2021-10-11)
+
+
+### Features
+
+* add py38 and py39 to supported versions ([8a769cc](https://github.com/teloscube/decaf-client-python/commit/8a769ccd890ab6061cf4c597b5b3911f7e78dce3))
+
+
+### Bug Fixes
+
+* **deps:** update production dependencies ([acd373d](https://github.com/teloscube/decaf-client-python/commit/acd373d854d8e9180bbe0b35ddb2edc618c9dbbe))
+
 ### [0.0.10](https://github.com/telostat/decaf-api-client-python/compare/0.0.9...0.0.10) (2020-06-11)
 
 
