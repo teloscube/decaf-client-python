@@ -1,4 +1,6 @@
-{ ... }:
+{ python ? "python310"
+, ...
+}:
 
 let
   ## Import Nix packages:
@@ -25,7 +27,7 @@ let
   ];
 
   ## Get a Python with our dependencies:
-  this-python = pkgs.python3.withPackages python-packages;
+  this-python = pkgs.${python}.withPackages python-packages;
 in
 pkgs.mkShell {
   packages = [

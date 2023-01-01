@@ -24,6 +24,14 @@ Open the codebase in Visual Studio Code:
 code .
 ```
 
+Alternatively, you can issue following commands directly without entering the
+Nix shell:
+
+```sh
+nix-shell --arg python "\"python39\"" --run tox
+nix-shell --arg python "\"python310\"" --run tox
+```
+
 ## Build and Publish
 
 Build the source distribution:
