@@ -355,7 +355,7 @@ class Client:
                 params=request.params,
                 data=request.data,
                 json=request.json,
-                files=request.files,
+                files=request.files,  # type: ignore
                 headers={**(request.headers or {}), **self.auth.headers()},
                 timeout=request.timeout,
                 auth=self._noop_auth,
@@ -635,7 +635,7 @@ class ResourceEndpoint(Generic[_R], Endpoint):
     """
 
     #: Resource model type.
-    resource: ClassVar[Type[_R]]
+    resource: ClassVar[Type[_R]]  # type: ignore
 
 
 class ResourceListEndpoint(ResourceEndpoint[_R]):
