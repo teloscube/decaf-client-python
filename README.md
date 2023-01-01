@@ -6,57 +6,25 @@
 
 ## Development
 
-Create a virtual environment, if you did not create one before:
+A Nix shell is provided for development:
 
 ```sh
-python3.9 -m venv /opt/venvs/decaf-client-python
-```
-
-### Start Development
-
-Activate the virtual environment:
-
-```sh
-. /opt/venvs/decaf-client-python/bin/activate
-```
-
-Upgrade `pip` and `setuptools`:
-
-```sh
-pip install --upgrade pip setuptools
-```
-
-Install `pipenv`:
-
-```sh
-pip install pipenv
-```
-
-Install production and development dependencies:
-
-```sh
-pipenv install --dev
+nix-shell
 ```
 
 Run tests:
 
 ```sh
-pipenv run tox
+tox
 ```
 
-Open the codebase in VSCode:
+Open the codebase in Visual Studio Code:
 
 ```sh
 code .
 ```
 
 ## Build and Publish
-
-Install/upgrade `twine`:
-
-```sh
-pip install --upgrade twine
-```
 
 Build the source distribution:
 
