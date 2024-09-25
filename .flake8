@@ -1,0 +1,34 @@
+[flake8]
+
+## Define error messages to be ignored.
+ignore =
+    ## We want double hash to be allowed for comments.
+    E266
+
+## Defines files and directories to be excluded from checking.
+exclude =
+    *.egg-info,
+    *.py[codi],
+    .cache,
+    .eggs,
+    .git,
+    .mypy_cache,
+    .tox,
+    __pycache__,
+    build,
+    dev,
+    dist,
+    result,
+    tmp
+
+## Defines maximum MCCABE complexity allowed.
+max-complexity = 7
+
+## Defines the maximum line length.
+max-line-length = 120
+
+## Indicates that doctests to be run.
+doctests = True
+
+## Indicates that we want summary statistics of error messages, if any.
+statistics = True

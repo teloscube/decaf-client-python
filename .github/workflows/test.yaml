@@ -1,0 +1,35 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        python:
+          - "3.10"
+          - "3.11"
+          - "3.12"
+
+    steps:
+      - name: "Checkout codebase"
+        uses: "actions/checkout@v4"
+      - name: "Setup Python"
+        uses: "actions/setup-python@v5"
+        with:
+          python-version: "${{ matrix.python }}"
+      - name: "Install Package with Test Dependencies"
+        run: "pip install -e \".[test]\""
+      - name: "Run Tests: isort"
+        run: "isort --diff --check decaf/"
+      - name: "Run Tests: black"
+        run: "black --check decaf/"
+      - name: "Run Tests: mypy"
+        run: "mypy --namespace-packages --package decaf.api.client"
+      - name: "Run Tests: flake8"
+        run: "flake8"
+      - name: "Run Tests: pytest"
+        run: "pytest --verbose --doctest-modules"

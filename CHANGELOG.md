@@ -84,8 +84,38 @@
 
 ### 0.0.4 (2019-07-31)
 
+* 2019-07-31 a143018 Add put method to the client (vst@vsthost.com)
+* 2019-05-30 764faa8 Create client from profile (vst@vsthost.com)
+* 2019-05-18 5f52572 (chore) Bump version to 0.0.4.dev0 (vst@vsthost.com)
+
 ### 0.0.3 (2019-05-18)
+
+* 2019-05-18 90e269d Merge branch '0.0.3' (vst@vsthost.com)
+* 2019-05-18 9eaf384 (fix) Fix README.md and setup.py (vst@vsthost.com)
+* 2019-05-18 bd7b714 (fix) Fix packaging (vst@vsthost.com)
+* 2019-05-18 79e7758 (release) Update change log (vst@vsthost.com)
+* 2019-05-18 2d88cb1 (release) Bump version to 0.0.3 (vst@vsthost.com)
+* 2019-05-18 6176470 (chore) Adapt setup to README.md (vst@vsthost.com)
+* 2019-05-18 0e4ad31 (chore) Convert README from .rst to .md (vst@vsthost.com)
+* 2019-05-18 b3e58f9 (chore) Upgrade requests dependency (vst@vsthost.com)
+* 2019-05-18 643cb5f (chore) Rename package to decaf.api.client (vst@vsthost.com)
+* 2019-04-16 bb66fda (chore) Version bumped to 0.0.3.dev0 (vst@vsthost.com)
 
 ### 0.0.2 (2019-04-16)
 
+* 2019-04-16 1984637 Merge branch '0.0.2' (vst@vsthost.com)
+* 2019-04-16 747dd8c (release) Change log updated (vst@vsthost.com)
+* 2019-04-16 d3cdc74 (release) Version bumped to 0.0.2 (vst@vsthost.com)
+* 2019-03-07 23be6ea (improve) Support for remote value collections (vst@vsthost.com)
+* 2019-03-07 77c19bc (fix) Entity endpoint attribute fix (vst@vsthost.com)
+* 2019-03-06 d13ba17 (improve) Request timeouts and exception handling (vst@vsthost.com)
+* 2019-03-05 779002b (chore) Revisit dev dependencies (vst@vsthost.com)
+* 2019-03-05 e590bd8 (chore) Version bumped to 0.0.2.dev0 (vst@vsthost.com)
+
 ### 0.0.1 (2019-03-05)
+
+* 2019-03-05 3b3ebcb Merge branch '0.0.1' (vst@vsthost.com)
+* 2019-03-05 d663296 (release) Change log updated (vst@vsthost.com)
+* 2019-03-05 b4a0bdc (release) Version bumped to 0.0.1 (vst@vsthost.com)
+* 2019-03-05 afd8b3b Initial code commit (vst@vsthost.com)
+* 2019-03-05 a90b4dc Initial commit (vst@vsthost.com)

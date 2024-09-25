@@ -16,9 +16,7 @@ __all__ = [
 
 from decimal import Decimal
 from itertools import groupby
-from typing import Callable, Dict, Iterable, Optional, Tuple, TypeVar, Union
-
-from typing_extensions import Protocol
+from typing import Callable, Dict, Iterable, Optional, Protocol, Tuple, TypeVar, Union
 
 from .types import Date, DateTime
 

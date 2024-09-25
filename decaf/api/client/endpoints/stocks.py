@@ -7,9 +7,7 @@ __all__ = [
 import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional
-
-from typing_extensions import Literal
+from typing import List, Literal, Optional
 
 from ..machinery import BaseResource, ResourceEndpoint, query
 from ..types import GUID, AccountId, ArtifactId, ArtifactTypeId, InstitutionId, PortfolioId, TeamId
