@@ -1,13 +1,82 @@
+[project]
+name = "decaf-api-client"
+dynamic = ["version"]
+description = "DECAF API Client"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = ["decaf", "api", "client", "finance"]
+authors = [{ name = "Vehbi Sinan Tunalioglu", email = "vst@vsthost.com" }]
+maintainers = [{ name = "Vehbi Sinan Tunalioglu", email = "vst@vsthost.com" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "pydantic>=1,<2",
+  "requests>=2,<3",
+  "typing-extensions>=3.7.4.3",
+]
+
+
+[project.optional-dependencies]
+test = [
+  "black",
+  "flake8",
+  "isort",
+  "mypy",
+  "pytest",
+  "tox",
+  "types-requests",
+]
+
+dev = [
+  "build",
+  "ipython",
+  "pip",
+  "pyls-flake8",
+  "pyls-isort",
+  "pylsp-mypy",
+  "pylsp-rope",
+  "python-lsp-black",
+  "python-lsp-server",
+  "rope",
+  "twine",
+  "wheel",
+]
+
+
+[project.urls]
+homepage = "https://github.com/telostat/decaf-api-client-python"
+documentation = "https://github.com/telostat/decaf-api-client-python"
+repository = "https://github.com/telostat/decaf-api-client-python"
+changelog = "https://github.com/teloscube/decaf-client-python/blob/main/CHANGELOG.md"
+
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.setuptools.dynamic]
+version = { attr = "decaf.api.client.__version__" }
+
+
+[tool.setuptools.packages.find]
+include = ["decaf.api.client"]
+
+
 [tool.black]
 line-length = 120
-target_version = ["py37"]
-exclude = '''
-/(
-)/
-'''
+target_version = ["py311"]
+
 
 [tool.isort]
-
 line_length = 120
 multi_line_output = 3
 include_trailing_comma = true
