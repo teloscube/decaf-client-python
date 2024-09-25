@@ -64,7 +64,7 @@
 
             isort --diff --check decaf/
             black --check decaf/
-            mypy --namespace-packages decaf/api/client
+            mypy --namespace-packages --package decaf.api.client
             flake8
             pytest --verbose --ignore=setup.py --ignore-glob=tmp/* --doctest-modules
 
