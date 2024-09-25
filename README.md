@@ -1,6 +1,6 @@
 # DECAF API Client (Python)
 
-[![Github](https://github.com/telostat/decaf-api-client-python/workflows/Install%20and%20Test/badge.svg)](https://github.com/telostat/decaf-api-client-python/actions)
+[![Test](https://github.com/teloscube/decaf-client-python/actions/workflows/test.yml/badge.svg)](https://github.com/teloscube/decaf-client-python/actions/workflows/test.yml)
 
 > **TODO:** Provide a complete README file.
 
@@ -9,27 +9,13 @@
 A Nix shell is provided for development:
 
 ```sh
-nix-shell
+nix develop
 ```
 
-Run tests:
+Build to run tests:
 
 ```sh
-tox
-```
-
-Open the codebase in Visual Studio Code:
-
-```sh
-code .
-```
-
-Alternatively, you can issue following commands directly without entering the
-Nix shell:
-
-```sh
-nix-shell --arg python "\"python39\"" --run tox
-nix-shell --arg python "\"python310\"" --run tox
+nix build
 ```
 
 ## Build and Publish
@@ -37,7 +23,7 @@ nix-shell --arg python "\"python310\"" --run tox
 Build the source distribution:
 
 ```sh
-python setup.py sdist bdist_wheel
+python -m build --sdist --wheel
 ```
 
 Check the distribution(s):
@@ -54,5 +40,8 @@ twine upload -s dist/*
 
 ## License and Copyrights
 
-This software is licensed under [The 3-Clause BSD
-License](https://opensource.org/licenses/BSD-3-Clause).
+This software is licensed under [The 3-Clause BSD License].
+
+<!-- REFERENCES -->
+
+[The 3-Clause BSD License]: https://opensource.org/licenses/BSD-3-Clause
