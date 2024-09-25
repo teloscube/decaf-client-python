@@ -9,44 +9,33 @@ keywords = ["decaf", "api", "client", "finance"]
 authors = [{ name = "Vehbi Sinan Tunalioglu", email = "vst@vsthost.com" }]
 maintainers = [{ name = "Vehbi Sinan Tunalioglu", email = "vst@vsthost.com" }]
 classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Intended Audience :: Developers",
-  "License :: OSI Approved :: BSD License",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
-dependencies = [
-  "pydantic>=1,<2",
-  "requests>=2,<3",
-]
+dependencies = ["pydantic>=1,<2", "requests>=2,<3"]
 
 
 [project.optional-dependencies]
-test = [
-  "black",
-  "flake8",
-  "isort",
-  "mypy",
-  "pytest",
-  "tox",
-  "types-requests",
-]
+test = ["black", "flake8", "isort", "mypy", "pytest", "types-requests"]
 
 dev = [
-  "build",
-  "ipython",
-  "pip",
-  "pyls-flake8",
-  "pyls-isort",
-  "pylsp-mypy",
-  "pylsp-rope",
-  "python-lsp-black",
-  "python-lsp-server",
-  "rope",
-  "twine",
-  "wheel",
+    "build",
+    "ipython",
+    "pip",
+    "pyls-flake8",
+    "pyls-isort",
+    "pylsp-mypy",
+    "pylsp-rope",
+    "python-lsp-black",
+    "python-lsp-server",
+    "rope",
+    "twine",
+    "wheel",
 ]
 
 
@@ -72,7 +61,7 @@ include = ["decaf.api.client"]
 
 [tool.black]
 line-length = 120
-target_version = ["py311"]
+target-version = ["py310"]
 
 
 [tool.isort]
