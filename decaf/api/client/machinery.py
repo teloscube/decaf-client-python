@@ -56,6 +56,7 @@ from typing import (
     Generic,
     Iterable,
     List,
+    Literal,
     Optional,
     Set,
     TextIO,
@@ -69,7 +70,6 @@ from urllib.parse import urljoin
 import requests
 from pydantic import BaseModel, Field
 from requests.auth import AuthBase
-from typing_extensions import Literal
 
 
 @dataclass(frozen=True)
