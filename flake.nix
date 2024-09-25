@@ -68,7 +68,7 @@
 
             isort --diff --check decaf/
             black --check decaf/
-            mypy --config-file tox.ini --namespace-packages decaf/api/client
+            mypy --namespace-packages decaf/api/client
             flake8
             pytest --verbose --ignore=setup.py --ignore-glob=tmp/* --doctest-modules
 
