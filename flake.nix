@@ -19,11 +19,7 @@
       };
 
       ## Use default nixpkgs Python3 interpreter and package set but override pydantic:
-      python = pkgs.python3.override {
-        packageOverrides = self: super: {
-          pydantic = super.pydantic_1;
-        };
-      };
+      python = pkgs.python3;
 
       ## Get the library version:
       version = builtins.head (builtins.match ''.*__version__[ ]*=[ ]*"(.*)".*'' (builtins.readFile ./decaf/api/client/__init__.py));
