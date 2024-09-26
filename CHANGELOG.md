@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.0.12](https://github.com/teloscube/decaf-client-python/compare/0.0.11...0.0.12) (2024-09-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **dev:** switch to pyproject.toml, pyproject.nix
+
+### Documentation
+
+* update README and LICENSE ([3a7415c](https://github.com/teloscube/decaf-client-python/commit/3a7415cf1f7c178a7678d4ea5e5bd9d7b1c2b522))
+
+
+### Miscellaneous Chores
+
+* release 0.0.12 ([aaef4f7](https://github.com/teloscube/decaf-client-python/commit/aaef4f7d74978437d6b53f47724bac3e9f59ba89))
+* release 0.0.12 ([770c3b1](https://github.com/teloscube/decaf-client-python/commit/770c3b1af935cac2f2985a0b9dbf037c275ac56c))
+
+
+### Code Refactoring
+
+* **dev:** switch to pyproject.toml, pyproject.nix ([3a97934](https://github.com/teloscube/decaf-client-python/commit/3a979345fceb969e06598352026e45f79f7c3f1b))
+
 ### [0.0.11](https://github.com/teloscube/decaf-client-python/compare/0.0.10...0.0.11) (2021-10-11)
 
 
