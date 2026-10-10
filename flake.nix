@@ -1,7 +1,7 @@
 {
   description = "Flake to develop, test, build and publish DECAF API Client for Python.";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/release-24.05";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/release-26.05";
   inputs.pyproject-nix.url = "github:nix-community/pyproject.nix";
   inputs.pyproject-nix.inputs.nixpkgs.follows = "nixpkgs";
 
