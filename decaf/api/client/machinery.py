@@ -635,7 +635,7 @@ class ResourceEndpoint(Generic[_R], Endpoint):
     """
 
     #: Resource model type.
-    resource: ClassVar[Type[_R]]  # type: ignore
+    resource: ClassVar[Type[_R]]
 
 
 class ResourceListEndpoint(ResourceEndpoint[_R]):
