@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.13](https://github.com/teloscube/decaf-client-python/compare/0.0.12...0.0.13) (2026-10-10)
+
+
+### Miscellaneous Chores
+
+* release 0.0.13 ([0e0c179](https://github.com/teloscube/decaf-client-python/commit/0e0c179f96f828b983ed88c7812808e4075de0d8))
+
 ## [0.0.12](https://github.com/teloscube/decaf-client-python/compare/0.0.11...0.0.12) (2024-09-26)
 
 
