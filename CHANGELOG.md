@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.14](https://github.com/teloscube/decaf-client-python/compare/0.0.13...0.0.14) (2026-10-16)
+
+
+### Bug Fixes
+
+* default absent optional endpoint fields to None for pydantic v2 ([a1e7cc3](https://github.com/teloscube/decaf-client-python/commit/a1e7cc3c8e948d981fa06340520db0cdc52305b5))
+
 ## [0.0.13](https://github.com/teloscube/decaf-client-python/compare/0.0.12...0.0.13) (2026-10-10)
 
 
