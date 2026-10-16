@@ -64,20 +64,20 @@ class ConsolidationHoldingArtifact(BaseModel):
     id: ArtifactId
     guid: GUID
     type: ConsolidationHoldingArtifactType
-    stype: Optional[str]
+    stype: Optional[str] = None
     symbol: str
-    name: Optional[str]
-    ccy: Optional[Currency]
-    quantity: Optional[Decimal]
-    country: Optional[str]
-    issuer: Optional[str]
-    sector: Optional[str]
-    mic: Optional[str]
-    ticker: Optional[str]
-    isin: Optional[str]
-    figi: Optional[str]
-    expiry: Optional[Date]
-    underlying_id: Optional[ArtifactId]
+    name: Optional[str] = None
+    ccy: Optional[Currency] = None
+    quantity: Optional[Decimal] = None
+    country: Optional[str] = None
+    issuer: Optional[str] = None
+    sector: Optional[str] = None
+    mic: Optional[str] = None
+    ticker: Optional[str] = None
+    isin: Optional[str] = None
+    figi: Optional[str] = None
+    expiry: Optional[Date] = None
+    underlying_id: Optional[ArtifactId] = None
 
     def __lt__(self, other: "ConsolidationHoldingArtifact") -> bool:
         return self.symbol < other.symbol
@@ -93,8 +93,8 @@ class ConsolidationHoldingTags(BaseModel):
 
 
 class ConsolidationHoldingValuePair(BaseModel):
-    org: Optional[Decimal]
-    ref: Optional[Decimal]
+    org: Optional[Decimal] = None
+    ref: Optional[Decimal] = None
 
 
 class ConsolidationHoldingInvestment(BaseModel):
@@ -122,9 +122,9 @@ class ConsolidationSubHolding(BaseModel):
     accounts: List[ConsolidationAccount]
     investment: ConsolidationHoldingInvestment
     valuation: ConsolidationHoldingValuation
-    change: Optional[Decimal]
-    pnl: Optional[Decimal]
-    pnl_to_investment: Optional[Decimal]
+    change: Optional[Decimal] = None
+    pnl: Optional[Decimal] = None
+    pnl_to_investment: Optional[Decimal] = None
     opendate: Date
     lastdate: Date
 
@@ -141,9 +141,9 @@ class ConsolidationHolding(BaseModel):
     investment: ConsolidationHoldingInvestment
     valuation: ConsolidationHoldingValuation
     children: List[ConsolidationSubHolding]
-    change: Optional[Decimal]
-    pnl: Optional[Decimal]
-    pnl_to_investment: Optional[Decimal]
+    change: Optional[Decimal] = None
+    pnl: Optional[Decimal] = None
+    pnl_to_investment: Optional[Decimal] = None
     opendate: Date
     lastdate: Date
 
@@ -165,9 +165,9 @@ class ConsolidationAccountHolding:
     opendate: Date
     lastdate: Date
     tags: ConsolidationHoldingTags
-    change: Optional[Decimal]
-    pnl: Optional[Decimal]
-    pnl_to_investment: Optional[Decimal]
+    change: Optional[Decimal] = None
+    pnl: Optional[Decimal] = None
+    pnl_to_investment: Optional[Decimal] = None
 
 
 class ConsolidationResource(BaseResource):
@@ -179,16 +179,16 @@ class ConsolidationResource(BaseResource):
     accounts: ConsolidationAccounts
     holdings: List[ConsolidationHolding]
     accruals: List[Any]  # TODO: Complete
-    investment: Optional[Decimal]
-    valuation_net: Optional[Decimal]
-    valuation_abs: Optional[Decimal]
-    accrued: Optional[Decimal]
-    liabilities: Optional[Decimal]
-    gav: Optional[Decimal]
+    investment: Optional[Decimal] = None
+    valuation_net: Optional[Decimal] = None
+    valuation_abs: Optional[Decimal] = None
+    accrued: Optional[Decimal] = None
+    liabilities: Optional[Decimal] = None
+    gav: Optional[Decimal] = None
     nav: Decimal
     aum: Decimal
     pnl: Decimal
-    pnl_to_investment: Optional[Decimal]
+    pnl_to_investment: Optional[Decimal] = None
     fxrates: List[ConsolidationFXRate]
 
     def get_account_level_holdings(self) -> Iterable[ConsolidationAccountHolding]:

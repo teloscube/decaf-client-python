@@ -17,9 +17,9 @@ class StockResource(BaseResource):
     artifact: ArtifactId
     artifact_guid: GUID
     artifact_ctype: ArtifactTypeId
-    artifact_stype: Optional[str]
+    artifact_stype: Optional[str] = None
     artifact_symbol: str
-    artifact_name: Optional[str]
+    artifact_name: Optional[str] = None
     account: AccountId
     account_guid: GUID
     account_name: str

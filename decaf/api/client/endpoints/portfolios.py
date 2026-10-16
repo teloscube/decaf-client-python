@@ -37,22 +37,22 @@ class PortfolioResource(BaseResource):
     id: PortfolioId
     guid: GUID
     created: DateTime
-    creator: Optional[UserId]
+    creator: Optional[UserId] = None
     updated: DateTime
-    updater: Optional[UserId]
+    updater: Optional[UserId] = None
     name: str
     team: TeamId
     rccy: Currency
     sandbox: bool
-    isin: Optional[str]
-    domicile: Optional[CountryId]
-    manager: Optional[str]
-    objective: Optional[str]
-    benchmark: Optional[OHLCId]
-    riskprofile: Optional[RiskProfileId]
-    data_source: Optional[str]
+    isin: Optional[str] = None
+    domicile: Optional[CountryId] = None
+    manager: Optional[str] = None
+    objective: Optional[str] = None
+    benchmark: Optional[OHLCId] = None
+    riskprofile: Optional[RiskProfileId] = None
+    data_source: Optional[str] = None
     team_name: str
-    inception: Optional[Date]
+    inception: Optional[Date] = None
     accounts: List[AccountId]
     shareclasses: List[ShareClassId]
     accrualschedules: List[AccrualScheduleId]

@@ -24,14 +24,14 @@ class InstitutionResource(BaseResource):
     id: InstitutionId
     guid: GUID
     created: DateTime
-    creator: Optional[UserId]
+    creator: Optional[UserId] = None
     updated: DateTime
-    updater: Optional[UserId]
+    updater: Optional[UserId] = None
     name: str
     accounts: List[AccountId]
     sharings: List[SharingId]
-    sharing: Optional[Decimal]
-    kickback: Optional[Decimal]
+    sharing: Optional[Decimal] = None
+    kickback: Optional[Decimal] = None
 
 
 class InstitutionCreateForm(BaseCreateForm):

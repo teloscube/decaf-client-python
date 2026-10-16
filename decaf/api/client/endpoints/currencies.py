@@ -15,7 +15,7 @@ from decaf.api.client.types import Currency, Date
 class CurrencyResource(BaseResource):
     code: Currency
     name: str
-    decimals: Optional[int]
+    decimals: Optional[int] = None
 
     @validator("decimals")
     def decimals_can_be_optional(cls, v: int) -> Optional[int]:

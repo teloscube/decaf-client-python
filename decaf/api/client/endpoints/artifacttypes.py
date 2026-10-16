@@ -18,7 +18,7 @@ class ArtifactTypeField(BaseModel):
     readonly: bool
     required: bool
     needed: bool
-    help: Optional[str]
+    help: Optional[str] = None
 
 
 class ArtifactTypeResource(BaseResource):

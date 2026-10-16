@@ -24,18 +24,18 @@ class UserResource(BaseResource):
     id: UserId
     guid: GUID
     created: DateTime
-    creator: Optional[UserId]
+    creator: Optional[UserId] = None
     updated: DateTime
-    updater: Optional[UserId]
+    updater: Optional[UserId] = None
     username: str
     is_active: bool
     privileged: bool
     date_joined: DateTime
-    email: Optional[str]
-    first_name: Optional[str]
-    last_name: Optional[str]
-    mobile: Optional[str]
-    last_login: Optional[DateTime]
+    email: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    mobile: Optional[str] = None
+    last_login: Optional[DateTime] = None
     groups: List[GroupId]
     teams: List[TeamId]
     portfolio_groups: List[PortfolioGroupId]

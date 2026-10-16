@@ -13,11 +13,11 @@ class AnalyticalTypeResource(BaseResource):
     id: AnalyticalTypeId
     guid: GUID
     created: DateTime
-    creator: Optional[UserId]
+    creator: Optional[UserId] = None
     updated: DateTime
-    updater: Optional[UserId]
+    updater: Optional[UserId] = None
     name: str
-    description: Optional[str]
+    description: Optional[str] = None
 
 
 class AnalyticalTypes(ResourceListEndpoint[AnalyticalTypeResource]):

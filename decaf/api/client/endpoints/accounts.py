@@ -38,30 +38,30 @@ class AccountResource(BaseResource):
     id: AccountId
     guid: GUID
     created: DateTime
-    creator: Optional[UserId]
+    creator: Optional[UserId] = None
     updated: DateTime
-    updater: Optional[UserId]
+    updater: Optional[UserId] = None
     name: str
-    opened: Optional[Date]
+    opened: Optional[Date] = None
     rccy: Currency
     portfolio: PortfolioId
     custodian: InstitutionId
-    atype: Optional[AnalyticalTypeId]
-    riskprofile: Optional[RiskProfileId]
-    horizontype: Optional[str]
-    mandatetype: Optional[str]
-    data_source: Optional[str]
+    atype: Optional[AnalyticalTypeId] = None
+    riskprofile: Optional[RiskProfileId] = None
+    horizontype: Optional[str] = None
+    mandatetype: Optional[str] = None
+    data_source: Optional[str] = None
     htype: str
-    inception: Optional[Date]
-    closed: Optional[Date]
+    inception: Optional[Date] = None
+    closed: Optional[Date] = None
     is_active: bool
     is_closed: bool
-    mfpercentage: Optional[AccountMngtFeeSchemeId]
+    mfpercentage: Optional[AccountMngtFeeSchemeId] = None
     mfpercentages: List[AccountMngtFeeSchemeId]
-    riskprofile_name: Optional[str]
-    custodian_name: Optional[str]
-    portfolio_name: Optional[str]
-    team_name: Optional[str]
+    riskprofile_name: Optional[str] = None
+    custodian_name: Optional[str] = None
+    portfolio_name: Optional[str] = None
+    team_name: Optional[str] = None
 
 
 class AccountCreateForm(BaseCreateForm):

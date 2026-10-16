@@ -26,59 +26,59 @@ class ArtifactResource(BaseResource):
     id: ArtifactId
     guid: GUID
     created: DateTime
-    creator: Optional[UserId]
+    creator: Optional[UserId] = None
     updated: DateTime
-    updater: Optional[UserId]
+    updater: Optional[UserId] = None
     incomplete: bool
-    cflag: Optional[int]
+    cflag: Optional[int] = None
     type: str
     ctype: ArtifactTypeId
-    stype: Optional[str]
+    stype: Optional[str] = None
     symbol: str
     name: str
-    ccymain: Optional[Currency]
-    ccyaltn: Optional[Currency]
-    ccystlm: Optional[Currency]
-    pxmain: Optional[Decimal]
-    pxaltn: Optional[Decimal]
-    pxflip: Optional[bool]
-    pxcnst: Optional[Decimal]
-    issued: Optional[Date]
-    launch: Optional[Date]
-    ceased: Optional[Date]
-    expiry: Optional[Date]
-    last_tradable: Optional[Date]
-    first_notice: Optional[Date]
-    horizon: Optional[Date]
-    convday: Optional[_LaterS]
-    underlying: Optional[ArtifactId]
-    quantity: Optional[Decimal]
-    lvrgfact: Optional[Decimal]
-    style: Optional[str]
-    callput: Optional[bool]
-    frequency: Optional[int]
-    eom: Optional[int]
-    mic: Optional[str]
-    ticker: Optional[str]
-    isin: Optional[str]
-    cusip: Optional[str]
-    figi: Optional[str]
-    telekurs: Optional[str]
-    ohlccode: Optional[str]
-    country: Optional[str]
-    sector: Optional[str]
-    sector_gics: Optional[str]
-    issuer: Optional[str]
-    domicile: Optional[str]
-    reference: Optional[str]
-    remapcode: Optional[str]
-    sp_rating: Optional[str]
-    sp_outlook: Optional[str]
-    riskprofile: Optional[RiskProfileId]
-    assetclass: Optional[AssetClassId]
-    extdata: Optional[Any]
-    auxdata: Optional[Any]
-    description: Optional[str]
+    ccymain: Optional[Currency] = None
+    ccyaltn: Optional[Currency] = None
+    ccystlm: Optional[Currency] = None
+    pxmain: Optional[Decimal] = None
+    pxaltn: Optional[Decimal] = None
+    pxflip: Optional[bool] = None
+    pxcnst: Optional[Decimal] = None
+    issued: Optional[Date] = None
+    launch: Optional[Date] = None
+    ceased: Optional[Date] = None
+    expiry: Optional[Date] = None
+    last_tradable: Optional[Date] = None
+    first_notice: Optional[Date] = None
+    horizon: Optional[Date] = None
+    convday: Optional[_LaterS] = None
+    underlying: Optional[ArtifactId] = None
+    quantity: Optional[Decimal] = None
+    lvrgfact: Optional[Decimal] = None
+    style: Optional[str] = None
+    callput: Optional[bool] = None
+    frequency: Optional[int] = None
+    eom: Optional[int] = None
+    mic: Optional[str] = None
+    ticker: Optional[str] = None
+    isin: Optional[str] = None
+    cusip: Optional[str] = None
+    figi: Optional[str] = None
+    telekurs: Optional[str] = None
+    ohlccode: Optional[str] = None
+    country: Optional[str] = None
+    sector: Optional[str] = None
+    sector_gics: Optional[str] = None
+    issuer: Optional[str] = None
+    domicile: Optional[str] = None
+    reference: Optional[str] = None
+    remapcode: Optional[str] = None
+    sp_rating: Optional[str] = None
+    sp_outlook: Optional[str] = None
+    riskprofile: Optional[RiskProfileId] = None
+    assetclass: Optional[AssetClassId] = None
+    extdata: Optional[Any] = None
+    auxdata: Optional[Any] = None
+    description: Optional[str] = None
     tags: Tags
     attributes: Dict[str, Any]
 

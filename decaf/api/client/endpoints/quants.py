@@ -25,13 +25,13 @@ class QuantResource(BaseResource):
     id: QuantId
     guid: GUID
     created: DateTime
-    creator: Optional[UserId]
+    creator: Optional[UserId] = None
     updated: DateTime
-    updater: Optional[UserId]
+    updater: Optional[UserId] = None
     commitment: Date
     settlement: Date
-    executedat: Optional[str]
-    pseudorder: Optional[int]
+    executedat: Optional[str] = None
+    pseudorder: Optional[int] = None
     symbol: str
     resource: ArtifactId
     quantity: Decimal
@@ -42,9 +42,9 @@ class QuantResource(BaseResource):
     trade: ActionId
     ctype: _LaterI
     type: str
-    cflag: Optional[int]
-    refccy: Optional[Currency]
-    refamt: Optional[Decimal]
+    cflag: Optional[int] = None
+    refccy: Optional[Currency] = None
+    refamt: Optional[Decimal] = None
 
 
 class Quants(ResourceListEndpoint[QuantResource]):
